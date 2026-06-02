@@ -1,6 +1,6 @@
-# EY SEBI Compliance Bot
+# SEBI Compliance Bot
 
-A local, AI-powered compliance assistant built for EY. Upload SEBI/RBI regulatory circulars and ask natural language questions. The bot retrieves relevant sections, generates accurate answers, and automatically monitors live regulatory sources for conflicts with stored documents.
+A local, AI-powered compliance assistant Upload SEBI/RBI regulatory circulars and ask natural language questions. The bot retrieves relevant sections, generates accurate answers, and automatically monitors live regulatory sources for conflicts with stored documents.
 
 All processing happens **locally on your machine** — no data is sent to external APIs, no cloud cost.
 
