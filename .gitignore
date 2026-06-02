@@ -1,0 +1,22 @@
+# ChromaDB — large binary files, rebuilt by running ingest.py
+chroma_db/
+
+# PDF documents — too large for git, may be confidential
+docs/*.pdf
+
+# Runtime state files — regenerated automatically
+chat_history.json
+ingested_docs.json
+seen_circulars.json
+level2_status.json
+scraped_output.txt
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment / secrets — never commit these
+.env
+*.env
