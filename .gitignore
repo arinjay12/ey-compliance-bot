@@ -20,3 +20,6 @@ __pycache__/
 # Environment / secrets — never commit these
 .env
 *.env
+
+# Dev context / handoff docs
+HANDOFF.md

@@ -166,7 +166,7 @@ python demo_conflict.py
 |---|---|---|
 | 1 | Document Q&A + trailing suggestions | Complete |
 | 2 | Automated web monitoring + email alerts | Complete |
-| 3 | Download responses as PDF / Excel | Upcoming |
+| 3 | Download chat history as PDF / Excel | Complete |
 | 4 | Chart responses for numerical data | Upcoming |
 | 5 | Audio input and audio responses | Upcoming |
 
