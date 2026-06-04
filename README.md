@@ -1,8 +1,33 @@
-# SEBI Compliance Bot
+# EY SEBI Compliance Bot
 
-A local, AI-powered compliance assistant Upload SEBI/RBI regulatory circulars and ask natural language questions. The bot retrieves relevant sections, generates accurate answers, and automatically monitors live regulatory sources for conflicts with stored documents.
+A local, AI-powered compliance assistant built for EY. Upload SEBI/RBI regulatory circulars and ask natural language questions. The bot retrieves relevant sections, generates accurate answers, and automatically monitors live regulatory sources for conflicts with stored documents.
 
 All processing happens **locally on your machine** — no data is sent to external APIs, no cloud cost.
+
+---
+
+## Weekly Progress
+
+| Week | Dates | What Was Built | Status |
+|---|---|---|---|
+| [Week 1](weekly_progress/week1/WEEK1.md) | May 26 – Jun 1, 2026 | Project setup · Level 1 (Q&A) · Level 2 (monitoring + email) | Complete |
+| [Week 2](weekly_progress/week2/WEEK2.md) | Jun 2 – Jun 8, 2026 | Retrieval fix · Level 3 (PDF/Excel export) | Complete |
+| Week 3 | Jun 9 – Jun 15, 2026 | Level 4 (charts) | Upcoming |
+| Week 4 | Jun 16 – Jun 22, 2026 | Level 5 (audio) | Upcoming |
+
+> Detailed writeups of decisions, challenges, and solutions for each week are in the [`weekly_progress/`](weekly_progress/) folder.
+
+---
+
+## Feature Levels
+
+| Level | Feature | Status |
+|---|---|---|
+| 1 | Document Q&A + source citations + follow-up suggestions | ✅ Complete |
+| 2 | Automated web monitoring + conflict detection + email alerts | ✅ Complete |
+| 3 | Download chat history as PDF / Excel report | ✅ Complete |
+| 4 | Chart responses for numerical / tabular data | Upcoming |
+| 5 | Audio input and audio responses | Upcoming |
 
 ---
 
@@ -18,9 +43,14 @@ All processing happens **locally on your machine** — no data is sent to extern
 ### Level 2 — Automated Conflict Monitoring
 - Fetches the SEBI RSS feed and RBI circulars page daily
 - Compares new circulars against stored documents using semantic search
-- Llama 3 identifies factual conflicts or gaps (e.g. a deadline in an older circular that a newer one has superseded)
+- Llama 3 identifies factual conflicts or gaps (e.g. a deadline in an older circular superseded by a newer one)
 - Sends an automated email alert when a conflict is detected
 - Results visible in the app sidebar under "Level 2 Monitor"
+
+### Level 3 — Export Reports
+- Download the full chat session as a formatted **PDF** (EY-branded, A4, timestamped)
+- Download as an **Excel** spreadsheet (Q&A rows, yellow header, zebra-striped)
+- Export buttons appear in the sidebar after the first answer
 
 ---
 
@@ -33,6 +63,8 @@ All processing happens **locally on your machine** — no data is sent to extern
 | ChromaDB | Stores document chunks as vectors (local) |
 | Sentence Transformers (`all-MiniLM-L6-v2`) | Converts text to embeddings for semantic search |
 | Llama 3 via Ollama | LLM running locally — no API key needed |
+| ReportLab | Generates PDF export reports |
+| openpyxl | Generates Excel export reports |
 | BeautifulSoup + requests | Scrapes SEBI RSS feed and RBI circulars page |
 
 ---
@@ -42,18 +74,22 @@ All processing happens **locally on your machine** — no data is sent to extern
 ### Document Ingestion (`ingest.py`)
 ```
 PDF → split into 500-word chunks (50-word overlap)
+    → each chunk labelled with document name/date
     → each chunk converted to a vector (Sentence Transformers)
     → vectors stored in ChromaDB on disk
 ```
 
-### Query Pipeline (`app.py`)
+### Query Pipeline (`app.py`) — Hybrid Retrieval
 ```
-User question → converted to vector
-             → ChromaDB finds 4-6 most similar chunks (hybrid: MMR + document-targeted)
-             → chunks + question sent to Llama 3
+User question → MMR semantic search (4 chunks from 30 candidates)
+             → if query mentions specific circular by date/topic →
+               inject up to 3 chunks directly from that document
+             → all chunks + question sent to Llama 3
              → answer streamed back with source citations
              → 3 follow-up suggestions generated
 ```
+
+> Hybrid retrieval prevents large documents (e.g. a 292-page master circular) from drowning out smaller, more specific ones.
 
 ### Level 2 Pipeline (`level2.py`)
 ```
@@ -70,15 +106,18 @@ Daily trigger → fetch SEBI RSS + RBI circulars page
 
 ```
 ey-bot/
-├── app.py                  # Main Streamlit chat UI
-├── ingest.py               # Processes PDFs into ChromaDB (run once)
-├── query.py                # Terminal-based Q&A for testing
-├── level2.py               # Automated daily monitoring + email alerts
-├── demo_conflict.py        # Demonstrates conflict detection between stored docs
-├── scraper_test.py         # Tests which regulatory sources are scrapable
-├── requirements.txt        # All Python dependencies
-├── docs/                   # Place your PDF circulars here
-└── chroma_db/              # Auto-generated vector database (gitignored)
+├── app.py                     # Main Streamlit chat UI (Levels 1, 2, 3)
+├── ingest.py                  # Processes PDFs into ChromaDB (run once)
+├── query.py                   # Terminal-based Q&A for testing
+├── level2.py                  # Automated daily monitoring + email alerts
+├── demo_conflict.py           # Demonstrates conflict detection between stored docs
+├── scraper_test.py            # Tests which regulatory sources are scrapable
+├── requirements.txt           # All Python dependencies
+├── docs/                      # Place your PDF circulars here
+├── chroma_db/                 # Auto-generated vector database (gitignored)
+└── weekly_progress/           # Week-by-week progress writeups
+    ├── week1/WEEK1.md
+    └── week2/WEEK2.md
 ```
 
 ---
@@ -110,7 +149,7 @@ python ingest.py
 
 ### 6. Launch the app
 ```bash
-streamlit run app.py
+python -m streamlit run app.py
 ```
 Opens at `http://localhost:8501`
 
@@ -160,20 +199,9 @@ python demo_conflict.py
 
 ---
 
-## Roadmap
-
-| Level | Feature | Status |
-|---|---|---|
-| 1 | Document Q&A + trailing suggestions | Complete |
-| 2 | Automated web monitoring + email alerts | Complete |
-| 3 | Download chat history as PDF / Excel | Complete |
-| 4 | Chart responses for numerical data | Upcoming |
-| 5 | Audio input and audio responses | Upcoming |
-
----
-
 ## Notes
 
 - Llama 3 running locally is slower without a GPU (20–40s per response). This is a hardware constraint, not a code issue.
 - The SEBI website blocks direct scraping. Level 2 uses the SEBI RSS feed (`sebi.gov.in/sebirss.xml`) and RBI's circulars page instead, both of which are accessible.
 - Email sending requires an open network — corporate/university networks often block SMTP ports. Test on a hotspot or home network if needed.
+- Run the app with `python -m streamlit run app.py` (not `streamlit run`) if `streamlit` is not on your PATH.
