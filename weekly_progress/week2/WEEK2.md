@@ -1,11 +1,5 @@
 # Week 2 — Retrieval Fix + Level 3 (PDF/Excel Export)
 
-**Period:** June 2 – June 8, 2026  
-**Intern:** Arinjay (EY Technology Risk)  
-**Supervisor:** Ashwini S Cheriyerimmel
-
----
-
 ## What Was Built
 
 ### Problem: Retrieval Domination Bug
