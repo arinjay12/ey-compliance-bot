@@ -1,11 +1,5 @@
 # Week 1 — Project Setup, Level 1 (Q&A), Level 2 (Monitoring)
 
-**Period:** May 26 – June 1, 2026  
-**Intern:** Arinjay (EY Technology Risk)  
-**Supervisor:** Ashwini S Cheriyerimmel
-
----
-
 ## What Was Built
 
 ### Architecture Decision: Local RAG Pipeline
