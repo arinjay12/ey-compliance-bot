@@ -1,0 +1,509 @@
+{
+  "summary": {
+    "answerable_n": 21,
+    "rag_correct": 19,
+    "vanilla_correct": 3,
+    "oos_n": 3,
+    "rag_unsafe": 0,
+    "vanilla_unsafe": 3
+  },
+  "rows": [
+    {
+      "id": "q01",
+      "category": "deadline_date",
+      "question": "What is the deadline for the limited relaxation from Regulation 58(1)(b) granted in the June 2025 SEBI LODR circular?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "According to the context:\n\n[Source: SEBI Circular (LODR Reg 58 relaxation) | Ref No: SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2025/83 | Dated: 05 June 2025 | Page 4.2]\n\n\"For the period June 06, 2025 to September 30, 2025, similar relaxation from the requirements of Regulation 58(1)(b) of the SEBI LODR Regulations is hereby provided for entities having listed non-convertible securities...\"\n\nSo, the deadline for the limited relaxation from Regulation 58(1)(b) granted in the June 2025 SEBI LODR circular is September 30, 2025.",
+      "vanilla_answer": "According to the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015, as amended by the SEBI Circular No. SEBI/HO/CFD/LODR/CIR/P/2022/0003 dated June 24, 2022, the limited relaxation from Regulation 58(1)(b) is granted until December 31, 2025.\n\nTherefore, the deadline for this relaxation is December 31, 2025.",
+      "retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "seconds": 62.8
+    },
+    {
+      "id": "q02",
+      "category": "reg_number",
+      "question": "What is the circular reference number of the June 5, 2025 SEBI circular on LODR relaxation?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "The answer is:\n\nSEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2025/83",
+      "vanilla_answer": "I'm happy to help!\n\nAs a SEBI compliance expert assistant at EY (Ernst & Young), I can confirm that there was no SEBI circular issued on June 5, 2025, regarding LODR (Listing Obligations and Disclosure Requirements) relaxation.\n\nTo verify this information, you can check the official website of Securities and Exchange Board of India (SEBI) or consult the relevant circulars and notifications published by SEBI.",
+      "retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "seconds": 21.5
+    },
+    {
+      "id": "q03",
+      "category": "reg_number",
+      "question": "Which specific SEBI LODR regulation is being relaxed in the June 5, 2025 circular?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "Based on the provided context, the answer is:\n\nRegulation 58(1)(b) of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015.\n\nSource: [SEBI Circular (LODR Reg 58 relaxation) | Ref No: SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2025/83 | Dated: 05 June 2025 | Page 1]",
+      "vanilla_answer": "According to the SEBI Circular No. SEBI/HO/CFD/CIR/P/2025/123 dated June 5, 2025, the relaxation of a specific SEBI LODR (Listing Obligations and Disclosure Requirements) regulation is related to the requirement for listed companies to hold at least one-third of their total directors as Independent Directors.\n\nAs per Regulation 17(1)(d) of the SEBI (LODR) Regulations, 2015, a listed company was required to have at least one-third of its total directors as Independent Directors. However, in the June 5, 2025 circular, SEBI has relaxed this requirement by allowing listed companies to have at least two Independent Directors on their board, provided that the total number of Independent Directors is not less than two.\n\nThis relaxation is intended to provide flexibility to listed companies in appointing Independent Directors and ensure better corporate governance practices.",
+      "retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "seconds": 43.4
+    },
+    {
+      "id": "q04",
+      "category": "factual_single",
+      "question": "For the June 06 to September 30, 2025 relaxation period, what condition must entities meet regarding advertisements?",
+      "answerable": true,
+      "rag_verdict": "WRONG",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "This information is not available in the uploaded documents.",
+      "vanilla_answer": "According to SEBI Circular No. CIR/CFD/CMD1/14/2019 dated November 21, 2019 (amending SEBI Circular No. CIR/CFD/CMD1/12/2018), for the relaxation period from June 6 to September 30, 2025, entities must ensure that their advertisements comply with the following condition:\n\n\"The advertisement shall not contain any misleading or deceptive statements and shall be consistent with the information contained in the offer document or the annual report of the listed entity.\"\n\nSource: SEBI Circular No. CIR/CFD/CMD1/14/2019 dated November 21, 2019 (amending SEBI Circular No. CIR/CFD/CMD1/12/2018)\n\nIn particular, Regulation 28(2) of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 states that:\n\n\"The listed entity shall ensure that all advertisements issued by it are consistent with the information contained in its offer document or annual report.\"\n\nSource: SEBI Regulation No. 28(2), Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "retrieved": [
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_170MD.PDF",
+        "RBI_RBI_doc_397MD7DCC951F9F014A738C60E0FBC1A73D70.PDF",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ],
+      "seconds": 38.5
+    },
+    {
+      "id": "q05",
+      "category": "factual_single",
+      "question": "Under which merchant category code are the @valid UPI handles for SEBI intermediaries exclusively designated?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "According to the context, the @valid UPI handles for SEBI intermediaries are exclusively designated under merchant category code 6211.\n\nSource: [SEBI Circular (UPI IDs for registered intermediaries) | Ref No: SEBI/HO/DEPA-II/DEPA-II_SRG/P/CIR/2025/86 | Dated: 11 June 2025 | Page 3]",
+      "vanilla_answer": "According to SEBI Circular No. CIR/CFD/CMD1/14/2019 dated September 12, 2019, and Regulation 18 of the Securities Contracts (Regulation) Rules, 1957, as amended by the Securities Contracts (Amendment) Regulations, 2020, SEBI intermediaries are exclusively designated under Merchant Category Code (MCC) 5926.\n\nSource:\nSEBI Circular No. CIR/CFD/CMD1/14/2019 dated September 12, 2019: \"Guidelines for UPI Handles for Stock Brokers and Depositories\"\nRegulation 18 of the Securities Contracts (Regulation) Rules, 1957, as amended by the Securities Contracts (Amendment) Regulations, 2020.",
+      "retrieved": [
+        "1749641449497.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf"
+      ],
+      "seconds": 32.5
+    },
+    {
+      "id": "q06",
+      "category": "factual_single",
+      "question": "What is the upper UPI transaction limit per day for capital market transactions in the June 2025 UPI circular?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "According to the context:\n\n[Source: SEBI Circular (UPI IDs for registered intermediaries) | Ref No: SEBI/HO/DEPA-II/DEPA-II_SRG/P/CIR/2025/86 | Dated: 11 June 2025 | Page 2]\n\nThe upper limit of up to \u20b95 lakhs per day for capital market transactions (done through UPI) shall be available, subject to periodic review and further evaluation as necessary.\n\nTherefore, the answer is:\n\n\u20b95 lakhs per day",
+      "vanilla_answer": "According to the June 2025 UPI Circular, the upper UPI transaction limit per day for capital market transactions is \u20b92 lakhs (Rs. 200,000). This is mentioned in the circular under the heading \"Transaction Limits\" and specifically states that \"The daily transaction limit for capital market transactions shall be \u20b92 lakhs.\"\n\nReference: SEBI Circular No. SEBI/HO/IMD1/P/CIR/2025/June dated June 15, 2025, paragraph 4.",
+      "retrieved": [
+        "1749641449497.pdf",
+        "RBI_RBI_doc_397MD7DCC951F9F014A738C60E0FBC1A73D70.PDF",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_173MD.PDF",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "seconds": 30.7
+    },
+    {
+      "id": "q07",
+      "category": "factual_single",
+      "question": "What is the name of the SEBI functionality that lets investors verify the authenticity of an intermediary's UPI ID?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "According to the context, the answer is:\n\n\"SEBI Check\"\n\nSource: [Source: SEBI Circular (UPI IDs for registered intermediaries) | Ref No: SEBI/HO/DEPA-II/DEPA-II_SRG/P/CIR/2025/86 | Dated: 11 June 2025 | Page 2]",
+      "vanilla_answer": "The SEBI functionality that allows investors to verify the authenticity of an intermediary's UPI ID is called \"UPI Verification\" or \"UPI Validation\". This feature is available on the SEBI-registered intermediaries' websites, as per Regulation 27(2) of the Securities and Exchange Board of India (Stock Brokers and Sub-Brokers) Regulations, 1992.\n\nSpecifically, SEBI Circular No. CIR/CFD/POLICY CELL/1/2019 dated June 14, 2019, mandates that all stock brokers and sub-brokers registered with SEBI must display their UPI ID on their website for verification by investors.\n\nInvestors can verify the authenticity of an intermediary's UPI ID by visiting their website and checking the displayed UPI ID against the one provided by the intermediary. This ensures that the investor is dealing with a genuine and SEBI-registered intermediary, thereby reducing the risk of fraudulent activities in the securities market.",
+      "retrieved": [
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf"
+      ],
+      "seconds": 38.3
+    },
+    {
+      "id": "q08",
+      "category": "factual_single",
+      "question": "What UPI handle format do SEBI-registered intermediaries use for collecting payments from investors?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "According to the context, SEBI-registered intermediaries use the following UPI handle format for collecting payments from investors:\n\n\"abc.bkr@validhdfc, xyz.mf@validhdfc\"\n\nSource: [SEBI Circular (UPI IDs for registered intermediaries) | Ref No: SEBI/HO/DEPA-II/DEPA-II_SRG/P/CIR/2025/86 | Dated: 11 June 2025 | Page 3]",
+      "vanilla_answer": "According to SEBI's Circular No. CIR/CFD/CMD1/14/2019 dated September 12, 2019, SEBI-registered intermediaries (such as stock brokers, mutual funds, and portfolio managers) are required to use the UPI handle format \"UPI@<Intermediary's Unique ID>\" for collecting payments from investors.\n\nFor example, if a stock broker has a unique ID \"1234567890\", their UPI handle would be \"UPI@1234567890\". This is specified in SEBI's Circular No. CIR/CFD/CMD1/14/2019 dated September 12, 2019 under the heading \"Unique Identifier for Intermediaries\" (para 3).\n\nSource: SEBI Circular No. CIR/CFD/CMD1/14/2019 dated September 12, 2019 - https://www.sebi.gov.in/sebi_data/circulars/jul-2019/cir-cfd-cmd1-14-2019.pdf",
+      "retrieved": [
+        "1749641449497.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf"
+      ],
+      "seconds": 42.7
+    },
+    {
+      "id": "q09",
+      "category": "factual_single",
+      "question": "Is the structured UPI mechanism mandatory for investors, for intermediaries, or both?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "According to the context:\n\n\"While the use of this structured UPI mechanism by investors shall remain optional, it is mandatory for intermediaries to obtain and make available this structured UPI address to their investors.\"\n\nSource: SEBI Circular (UPI IDs for registered intermediaries) | Ref No: SEBI/HO/DEPA-II/DEPA-II_SRG/P/CIR/2025/86 | Dated: 11 June 2025 | Page 1",
+      "vanilla_answer": "According to SEBI Circular No. CIR/CFD/CMD1/14/2019 dated September 12, 2019, the Structured Universal Payment Interface (UPI) mechanism is mandatory for Intermediaries.\n\nThe circular states that all intermediaries, including stock brokers, depositories, and custodians, shall implement the UPI mechanism to facilitate seamless settlement of transactions in securities markets. This is as per Regulation 74(5) of SEBI (Stock Brokers and Sub-Brokers) Regulations, 1992.\n\nInvestors are not required to use the Structured UPI mechanism directly, but they will benefit from the improved settlement process facilitated by intermediaries implementing this mechanism.\n\nReference: SEBI Circular No. CIR/CFD/CMD1/14/2019 dated September 12, 2019 and Regulation 74(5) of SEBI (Stock Brokers and Sub-Brokers) Regulations, 1992.",
+      "retrieved": [
+        "1749641449497.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_397MD7DCC951F9F014A738C60E0FBC1A73D70.PDF",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf"
+      ],
+      "seconds": 38.8
+    },
+    {
+      "id": "q10",
+      "category": "deadline_date",
+      "question": "From what date are the standardised, validated and exclusive UPI IDs available to investors?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "According to the context, the standardised, validated and exclusive UPI IDs shall be available for investors for making payments to intermediaries w.e.f. October 01, 2025.\n\nSource: SEBI Circular (UPI IDs for registered intermediaries) | Ref No: SEBI/HO/DEPA-II/DEPA-II_SRG/P/CIR/2025/86 | Dated: 11 June 2025 | Page 5",
+      "vanilla_answer": "According to SEBI's Circular No. SEBI/HO/IMD/DF3/P/C-02/2022 dated February 24, 2022, standardized, validated, and exclusive UPI (Unified Payments Interface) IDs are available to investors from April 1, 2022.\n\nSource: SEBI Circular No. SEBI/HO/IMD/DF3/P/C-02/2022 dated February 24, 2022 - \"Standardization of UPI IDs for Stock Brokers and Trading Members\"",
+      "retrieved": [
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "RBI_RBI_doc_MD39857992A3DBE7946619F0F76DF81E472CF.PDF",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf"
+      ],
+      "seconds": 27.9
+    },
+    {
+      "id": "q11",
+      "category": "factual_single",
+      "question": "By when must intermediaries discontinue the use of their old UPI IDs after the June 2025 UPI circular?",
+      "answerable": true,
+      "rag_verdict": "WRONG",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "This information is not available in the uploaded documents.",
+      "vanilla_answer": "According to the SEBI circular dated June 25, 2025 (Circular No. SEBI/HO/IMD/DF3/P/C-02/2025), intermediaries are required to discontinue the use of their old UPI IDs by December 31, 2025.\n\nThis is in compliance with Regulation 28(2) of the Payment and Settlement Systems Regulations, 2008 (PSSR), which states that a payment system operator shall ensure that all transactions through its system are settled within a reasonable time frame.\n\nTherefore, intermediaries must discontinue using their old UPI IDs by December 31, 2025, as specified in the SEBI circular.",
+      "retrieved": [
+        "1749641449497.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "RBI_RBI_doc_170MD.PDF",
+        "RBI_RBI_doc_170MD.PDF",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf"
+      ],
+      "seconds": 22.7
+    },
+    {
+      "id": "q12",
+      "category": "factual_single",
+      "question": "What subject matter does the October 15, 2025 SEBI master circular cover?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "Based on the provided context, the October 15, 2025 SEBI Master Circular covers the \"issue & listing of non-convertible securities\".",
+      "vanilla_answer": "The October 15, 2025 SEBI master circular covers the subject matter of \"Compliance with Regulatory Requirements by Listed Entities and Intermediaries\". This circular consolidates various regulatory requirements applicable to listed entities and intermediaries under the Securities Exchange Board of India (SEBI). The circular aims to provide a comprehensive framework for compliance with regulatory requirements, thereby ensuring transparency, accountability, and investor protection in the Indian securities market.",
+      "retrieved": [
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ],
+      "seconds": 17.5
+    },
+    {
+      "id": "q13",
+      "category": "deadline_date",
+      "question": "Up to what date does the October 2025 NCS master circular incorporate prior circulars?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "According to the context, the October 2025 NCS Master Circular incorporates prior circulars issued till June 30, 2025.\n\nSource: [SEBI Master Circular (issue & listing of non-convertible securities) | Ref No: SEBI/HO/DDHS/DDHS-PoD/P/CIR/2025/0000000137 | Dated: 15 October 2025 | Page 4]\n\nRef: SEBI/HO/DDHS/DDHS-PoD/P/CIR/2025/0000000137 | Dated: 15 October 2025",
+      "vanilla_answer": "According to the October 2025 NCS (New Circular Scheme) Master Circular, it incorporates prior circulars up to September 30, 2024. This is mentioned in paragraph 2 of the Master Circular.\n\nSource:\nMaster Circular - New Circular Scheme (NCS), October 2025, Paragraph 2\n\nNote: The reference number for this Master Circular is not available as it's a recent publication. However, I can assure you that the information provided is accurate and based on the latest regulatory requirements.",
+      "retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_29MD8B47C911ECA14450AACBAEF6D7981EF8.PDF",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf"
+      ],
+      "seconds": 35.8
+    },
+    {
+      "id": "q14",
+      "category": "definition",
+      "question": "The October 2025 NCS master circular is based on which year's SEBI NCS Regulations?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "The answer is: **2021**\n\nThis information is available in the context provided. Specifically, it can be found in [Source: SEBI Master Circular (issue & listing of non-convertible securities) | Ref No: SEBI/HO/DDHS/DDHS-PoD/P/CIR/2025/0000000137 | Dated: 15 October 2025 | Page 0]",
+      "vanilla_answer": "The October 2025 NCS Master Circular is based on the SEBI (Non-Convertible Debentures) Regulations, 2022. Specifically, it is based on Regulation 18 of the SEBI (NCDs) Regulations, 2022.\n\nReference:\nSEBI Circular No. SEBI/HO/IMD1/P/CIR/2022/123 dated October 25, 2022 - Master Circular on Non-Convertible Debentures (NCDs)\n\nNote: The NCS (Non-Convertible Securities) Master Circular is updated annually by SEBI, and the latest version is based on the regulations in force as of the previous year.",
+      "retrieved": [
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf"
+      ],
+      "seconds": 32.4
+    },
+    {
+      "id": "q15",
+      "category": "reg_number",
+      "question": "What is the reference number of the July 11, 2025 SEBI master circular on LODR for non-convertible securities?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "According to the context, the reference number of the July 11, 2025 SEBI master circular on LODR for non-convertible securities is:\n\nSEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2025/0000000103\n\nThis information can be found in the \"Source\" label of each chunk.",
+      "vanilla_answer": "I'm happy to help!\n\nAccording to my knowledge, there is no SEBI master circular on LODR (Listing Obligations and Disclosure Requirements) dated July 11, 2025. The most recent SEBI circular on LODR was issued on February 18, 2019, which can be found in the reference number SEBI/HO/LODR/P/CIR/2019/28.\n\nIf you're looking for information on non-convertible securities, I'd recommend reviewing the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015, specifically Regulation 42(3), which deals with the disclosure requirements for non-convertible securities.",
+      "retrieved": [
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf"
+      ],
+      "seconds": 24.6
+    },
+    {
+      "id": "q16",
+      "category": "factual_single",
+      "question": "What was the July 2025 NCS LODR master circular called before it was renamed in June 2023?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "According to the context, the answer is:\n\n\"Operational Circular\"\n\nSource: [SEBI Master Circular (LODR for non-convertible securities) | Ref No: SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2025/0000000103 | Dated: 11 July 2025 | Page 0]\n\nNote that this information is available in the uploaded documents.",
+      "vanilla_answer": "The July 2025 NCS LODR master circular was initially called \"Circular on Listing Obligations and Disclosure Requirements (LODR) for Main Board and SME Platforms\" before it was renamed as \"Circular on Corporate Governance and Share Transfer Scheme, 2023\" in June 2023.\n\nReference: SEBI Circular No. CIR/CFD/CMD1/14/2019 dated July 02, 2019, and SEBI Circular No. CIR/CFD/CMD1/13/2023 dated June 22, 2023.",
+      "retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf"
+      ],
+      "seconds": 26.3
+    },
+    {
+      "id": "q17",
+      "category": "factual_single",
+      "question": "What is the subject of the SEBI master circular for listed entities that was last updated on January 30, 2026?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "CORRECT",
+      "rag_answer": "According to the context, the subject of the SEBI Master Circular (LODR for listed entities) that was last updated on January 30, 2026, is compliance with the provisions of the LODR Regulations by listed entities.\n\nSource: [SEBI Master Circular (LODR for listed entities) | Ref No: HO/49/14/14(7)2025-CFD-POD2/I/3762/2026 | Dated: last updated 30 January 2026 (originally issued 11 July 2023)]",
+      "vanilla_answer": "The subject of the SEBI master circular for listed entities that was last updated on January 30, 2026 is the \"SEBI Circular No. CIR/CFD/CMD1/14/2019 dated September 11, 2019 and amended by SEBI Circular No. CIR/CFD/CMD1/13/2020 dated December 31, 2020\".\n\nThis circular consolidates various regulatory requirements for listed entities under the Securities and Exchange Board of India (SEBI) regulations, including those related to corporate governance, investor protection, disclosure norms, and other compliance matters.\n\nSpecifically, the circular covers topics such as:\n\n* Corporate Governance: SEBI (LODR) Regulations, 2015\n* Investor Protection: SEBI (SAST) Regulations, 2011\n* Disclosure Norms: SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015\n* Compliance Matters: SEBI Circular No. CIR/CFD/CMD1/14/2019 dated September 11, 2019\n\nThe circular is applicable to all listed entities, including companies, mutual funds, and other market intermediaries.\n\nReference:\nSEBI Circular No. CIR/CFD/CMD1/14/2019 dated September 11, 2019\nSEBI Circular No. CIR/CFD/CMD1/13/2020 dated December 31, 2020",
+      "retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ],
+      "seconds": 45.8
+    },
+    {
+      "id": "q18",
+      "category": "deadline_date",
+      "question": "Up to what date does the January 30, 2026 listed-entities master circular consolidate circulars?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "According to the context, the Master Circular dated July 11, 2023 was updated and issued on November 11, 2024 by consolidating all relevant circulars issued till September 30, 2024. Then, this Master Circular dated November 11, 2024 is updated to include all relevant circulars that were issued till December 30, 2025.\n\nTherefore, the January 30, 2026 listed-entities master circular consolidates circulars up to December 30, 2025.\n\nSource: [SEBI Master Circular (LODR for listed entities) | Ref No: HO/49/14/14(7)2025-CFD-POD2/I/3762/2026 | Dated: last updated 30 January 2026 (originally issued 11 July 2023)]",
+      "vanilla_answer": "According to the January 30, 2026 Listed Entities Master Circular, it consolidates circulars up to September 28, 2022. This is stated in the circular itself:\n\n\"This Master Circular consolidates all relevant SEBI circulars and guidelines applicable to listed entities as on September 28, 2022.\"\n\nSource: SEBI Circular No. SEBI/HO/ CIR/POLICY/CIR/2026/30 dated January 30, 2026",
+      "retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "RBI_RBI_doc_29MD8B47C911ECA14450AACBAEF6D7981EF8.PDF",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ],
+      "seconds": 35.2
+    },
+    {
+      "id": "q19",
+      "category": "factual_single",
+      "question": "When was the listed-entities LODR master circular originally first issued, before its later updates?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "WRONG",
+      "rag_answer": "According to the context:\n\n[Source: SEBI Master Circular (LODR for listed entities) | Ref No: HO/49/14/14(7)2025-CFD-POD2/I/3762/2026 | Dated: last updated 30 January 2026 (originally issued 11 July 2023) | Page 1]\n[SEBI Master Circular (LODR for listed entities) | Ref: HO/49/14/14(7)2025-CFD-POD2/I/3762/2026 | Dated: last updated 30 January 2026 (originally issued 11 July 2023)]\n\nThe answer is: The Master Circular was originally first issued on July 11, 2023.",
+      "vanilla_answer": "The Listed Entities LODR Master Circular was originally issued by Securities and Exchange Board of India (SEBI) on August 17, 2018. The circular is referred to as \"Circular No. SEBI/HO/CFD/CIR/P/2018/103\" and can be found in the SEBI website.\n\nThe original circular aimed at providing guidance to listed entities on their obligations under the Securities Contracts (Regulation) Rules, 1957, the Securities Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, and other relevant regulations.\n\nSubsequent updates were made to the circular in 2020 and 2022 to reflect changes in regulatory requirements and market practices.",
+      "retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ],
+      "seconds": 34.8
+    },
+    {
+      "id": "q20",
+      "category": "conflict_supersession",
+      "question": "Has the Regulation 58(1)(b) relaxation from the June 2025 circular expired, and if so when did the relaxation period end?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "CORRECT",
+      "rag_answer": "According to the SEBI Circular (LODR Reg 58 relaxation) dated June 05, 2025, the relaxation provided in para 4.2 is for the period June 06, 2025 to September 30, 2025.\n\nTherefore, the answer is:\n\nThe Regulation 58(1)(b) relaxation from the June 2025 circular expired on September 30, 2025.",
+      "vanilla_answer": "According to the Securities and Exchange Board of India (SEBI) Circular No. SEBI/HO/IMD1/P/C-02/2022 dated June 25, 2022, Regulation 58(1)(b) of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 was relaxed until December 31, 2024.\n\nAs per the circular, the relaxation period ended on December 31, 2024. Therefore, the regulation is no longer relaxed, and listed entities are required to comply with the original requirement of Regulation 58(1)(b).\n\nReference: SEBI Circular No. SEBI/HO/IMD1/P/C-02/2022 dated June 25, 2022",
+      "retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "seconds": 31.3
+    },
+    {
+      "id": "q21",
+      "category": "out_of_scope",
+      "question": "What are the SEBI margin requirements for intraday equity trading?",
+      "answerable": false,
+      "rag_verdict": "SAFE",
+      "vanilla_verdict": "UNSAFE",
+      "rag_answer": "This information is not available in the uploaded documents.",
+      "vanilla_answer": "According to SEBI regulations, the margin requirements for intraday equity trading in India are as follows:\n\n* For cash segment trades (i.e., trades settled on T+2 basis), the initial margin requirement is 15% of the trade value, and the exposure limit is 3 times the initial margin. This means that if a client wants to buy or sell shares worth \u20b91 lakh, they would need to deposit an initial margin of \u20b915,000 (15% of \u20b91 lakh) and have an exposure limit of \u20b93 lakhs (3 times the initial margin). [Source: SEBI Circular No. CIR/MRD/DP/02/2014 dated February 20, 2014]\n\n* For futures segment trades, the initial margin requirement is 10% to 15% of the trade value, depending on the stock and market conditions. The exposure limit for futures trading is typically higher than that for cash segment trades.\n\nIt's worth noting that these margins are subject to change based on market volatility and other factors, so it's always best to check with your broker or SEBI for the most up-to-date information.",
+      "retrieved": [
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ],
+      "seconds": 30.2
+    },
+    {
+      "id": "q22",
+      "category": "out_of_scope",
+      "question": "What is the penalty for insider trading under the SEBI Prohibition of Insider Trading Regulations?",
+      "answerable": false,
+      "rag_verdict": "SAFE",
+      "vanilla_verdict": "UNSAFE",
+      "rag_answer": "This information is not available in the uploaded documents.",
+      "vanilla_answer": "According to the SEBI Prohibition of Insider Trading Regulations, 2015 (Regulation 23), the penalty for insider trading can be up to three times the profit made or loss avoided by the insider, whichever is higher.\n\nAdditionally, Regulation 24 states that in case of failure to report a trade, the penalty shall not be less than \u20b92 lakhs and not more than \u20b925 lakhs.\n\nCircular Reference: SEBI Circular No. CIR/CFD/POLICY CELL/1/2015 dated February 3, 2015.\n\nPlease note that these penalties are subject to change, and it is always recommended to check the latest regulations and circulars for any updates or modifications.",
+      "retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf"
+      ],
+      "seconds": 21.0
+    },
+    {
+      "id": "q23",
+      "category": "out_of_scope",
+      "question": "What is the GST rate applicable to textile products in India?",
+      "answerable": false,
+      "rag_verdict": "SAFE",
+      "vanilla_verdict": "UNSAFE",
+      "rag_answer": "This information is not available in the uploaded documents.",
+      "vanilla_answer": "I'm happy to help! However, I must clarify that as a SEBI compliance expert assistant at EY (Ernst & Young), my expertise lies in securities and capital markets regulations, not Goods and Services Tax (GST). The GST rates are governed by the Central Board of Indirect Taxes and Customs (CBIC).\n\nTo answer your question accurately, textile products fall under the category of goods. As per the GST Council's notification No. 2/2017-Union Territory Tax (Rate) dated March 11, 2017, the applicable GST rate for textile products varies depending on the type of product.\n\nFor example:\n\n* Fabric, yarn, and thread: 5% GST rate (Notification No. 1/2017-Central Tax dated June 28, 2017)\n* Ready-made garments: 12% GST rate (Notification No. 2/2017-Union Territory Tax (Rate) dated March 11, 2017)\n\nPlease note that these rates are subject to change and may vary depending on the specific product or service. For the most up-to-date information, I recommend checking the CBIC website or consulting with a GST expert.\n\nAs a SEBI compliance expert assistant, my expertise lies in securities regulations, such as SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 (Regulation 28), SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 (Regulation 13), and other relevant circulars. If you have any questions related to these regulations or securities compliance, I'd be happy to assist!",
+      "retrieved": [
+        "RBI_RBI_doc_108MDINTERNALOMBUDSMANCC05402F77BE4F229B59877F341386A4.PDF",
+        "RBI_RBI_doc_169MD.PDF",
+        "RBI_RBI_doc_171MD.PDF",
+        "RBI_RBI_doc_400MDEF6FB735DC5A48308F688DCB9BA11A65.PDF"
+      ],
+      "seconds": 39.0
+    },
+    {
+      "id": "q24",
+      "category": "reg_number",
+      "question": "Which SEBI Act section is cited as the power under which the June 2025 UPI circular is issued?",
+      "answerable": true,
+      "rag_verdict": "CORRECT",
+      "vanilla_verdict": "CORRECT",
+      "rag_answer": "According to the context:\n\n[Source: SEBI Circular (UPI IDs for registered intermediaries) | Ref No: SEBI/HO/DEPA-II/DEPA-II_SRG/P/CIR/2025/86 | Dated: 11 June 2025 | Page 9]\n\nThe answer is: Section 11(1) of the Securities and Exchange Board of India Act, 1992.",
+      "vanilla_answer": "According to the Securities and Exchange Board of India (SEBI) Circular dated June 15, 2022, titled \"Guidelines for Unified Payments Interface (UPI) Transactions\", it is stated that the powers exercised by SEBI are under Section 11(1) of the Securities and Exchange Board of India Act, 1992.\n\nSpecifically, the circular states: \"The aforesaid guidelines have been issued by SEBI in exercise of its powers under Section 11(1) of the Securities and Exchange Board of India Act, 1992.\"\n\nSource:\nSEBI Circular No. SEBI/HO/IMD/POLICY/CIR P/2022/0005 dated June 15, 2022.\n\nSection 11(1) of the Securities and Exchange Board of India Act, 1992 states: \"The Board may, for the purpose of exercising any power or performing any function under this Act, make such rules, regulations, bye-laws, schemes, guidelines, circulars, notifications, orders or directions as it may deem necessary.\"",
+      "retrieved": [
+        "1749641449497.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "seconds": 37.3
+    }
+  ]
+}

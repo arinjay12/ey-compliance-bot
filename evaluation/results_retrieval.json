@@ -1,0 +1,455 @@
+{
+  "summary": {
+    "n": 21,
+    "hybrid_hits": 20,
+    "hybrid_rate": 0.9523809523809523,
+    "semantic_hits": 15,
+    "semantic_rate": 0.7142857142857143
+  },
+  "rows": [
+    {
+      "id": "q01",
+      "category": "deadline_date",
+      "expected": "18__SEBI_Circular_dated_June_05_2025.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": false,
+      "hybrid_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ]
+    },
+    {
+      "id": "q02",
+      "category": "reg_number",
+      "expected": "18__SEBI_Circular_dated_June_05_2025.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": false,
+      "hybrid_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ]
+    },
+    {
+      "id": "q03",
+      "category": "reg_number",
+      "expected": "18__SEBI_Circular_dated_June_05_2025.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": false,
+      "hybrid_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ]
+    },
+    {
+      "id": "q04",
+      "category": "factual_single",
+      "expected": "18__SEBI_Circular_dated_June_05_2025.pdf",
+      "hybrid_hit": false,
+      "semantic_hit": false,
+      "hybrid_retrieved": [
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_170MD.PDF",
+        "RBI_RBI_doc_397MD7DCC951F9F014A738C60E0FBC1A73D70.PDF",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_170MD.PDF",
+        "RBI_RBI_doc_397MD7DCC951F9F014A738C60E0FBC1A73D70.PDF",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ]
+    },
+    {
+      "id": "q05",
+      "category": "factual_single",
+      "expected": "1749641449497.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "1749641449497.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf"
+      ],
+      "semantic_retrieved": [
+        "1749641449497.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "1749641449497.pdf"
+      ]
+    },
+    {
+      "id": "q06",
+      "category": "factual_single",
+      "expected": "1749641449497.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "1749641449497.pdf",
+        "RBI_RBI_doc_397MD7DCC951F9F014A738C60E0FBC1A73D70.PDF",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_173MD.PDF",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "1749641449497.pdf",
+        "RBI_RBI_doc_397MD7DCC951F9F014A738C60E0FBC1A73D70.PDF",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_173MD.PDF"
+      ]
+    },
+    {
+      "id": "q07",
+      "category": "factual_single",
+      "expected": "1749641449497.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "1749641449497.pdf"
+      ],
+      "semantic_retrieved": [
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf"
+      ]
+    },
+    {
+      "id": "q08",
+      "category": "factual_single",
+      "expected": "1749641449497.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "1749641449497.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf"
+      ],
+      "semantic_retrieved": [
+        "1749641449497.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ]
+    },
+    {
+      "id": "q09",
+      "category": "factual_single",
+      "expected": "1749641449497.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "1749641449497.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_397MD7DCC951F9F014A738C60E0FBC1A73D70.PDF",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf"
+      ],
+      "semantic_retrieved": [
+        "1749641449497.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_397MD7DCC951F9F014A738C60E0FBC1A73D70.PDF",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ]
+    },
+    {
+      "id": "q10",
+      "category": "deadline_date",
+      "expected": "1749641449497.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "RBI_RBI_doc_MD39857992A3DBE7946619F0F76DF81E472CF.PDF",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf"
+      ],
+      "semantic_retrieved": [
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "RBI_RBI_doc_MD39857992A3DBE7946619F0F76DF81E472CF.PDF",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ]
+    },
+    {
+      "id": "q11",
+      "category": "factual_single",
+      "expected": "1749641449497.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "1749641449497.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "RBI_RBI_doc_170MD.PDF",
+        "RBI_RBI_doc_170MD.PDF",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "1749641449497.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "RBI_RBI_doc_170MD.PDF",
+        "RBI_RBI_doc_170MD.PDF"
+      ]
+    },
+    {
+      "id": "q12",
+      "category": "factual_single",
+      "expected": "39_SEBI_Circular_dated_October_15_2025.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ]
+    },
+    {
+      "id": "q13",
+      "category": "deadline_date",
+      "expected": "39_SEBI_Circular_dated_October_15_2025.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_29MD8B47C911ECA14450AACBAEF6D7981EF8.PDF",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_29MD8B47C911ECA14450AACBAEF6D7981EF8.PDF",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ]
+    },
+    {
+      "id": "q14",
+      "category": "definition",
+      "expected": "39_SEBI_Circular_dated_October_15_2025.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ]
+    },
+    {
+      "id": "q15",
+      "category": "reg_number",
+      "expected": "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf"
+      ]
+    },
+    {
+      "id": "q16",
+      "category": "factual_single",
+      "expected": "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": false,
+      "hybrid_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ]
+    },
+    {
+      "id": "q17",
+      "category": "factual_single",
+      "expected": "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ]
+    },
+    {
+      "id": "q18",
+      "category": "deadline_date",
+      "expected": "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "RBI_RBI_doc_29MD8B47C911ECA14450AACBAEF6D7981EF8.PDF",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ],
+      "semantic_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "RBI_RBI_doc_29MD8B47C911ECA14450AACBAEF6D7981EF8.PDF",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ]
+    },
+    {
+      "id": "q19",
+      "category": "factual_single",
+      "expected": "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ],
+      "semantic_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ]
+    },
+    {
+      "id": "q20",
+      "category": "conflict_supersession",
+      "expected": "18__SEBI_Circular_dated_June_05_2025.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": false,
+      "hybrid_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
+      ]
+    },
+    {
+      "id": "q24",
+      "category": "reg_number",
+      "expected": "1749641449497.pdf",
+      "hybrid_hit": true,
+      "semantic_hit": true,
+      "hybrid_retrieved": [
+        "1749641449497.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
+      ],
+      "semantic_retrieved": [
+        "1749641449497.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+      ]
+    }
+  ]
+}

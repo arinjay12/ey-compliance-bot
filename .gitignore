@@ -1,8 +1,10 @@
 # ChromaDB — large binary files, rebuilt by running ingest.py
 chroma_db/
 
-# PDF documents — too large for git, may be confidential
+# PDF documents — too large for git, may be confidential.
+# (RBI corpus is regenerable via: python download_docs.py --download 20)
 docs/*.pdf
+docs/*.PDF
 
 # Runtime state files — regenerated automatically
 chat_history.json
@@ -23,3 +25,7 @@ __pycache__/
 
 # Dev context / handoff docs
 HANDOFF.md
+
+# Evaluation iteration artifacts (canonical results_answers.json / EVAL_REPORT.md
+# and results_retrieval.json ARE committed as evidence)
+evaluation/results_quicktest.json

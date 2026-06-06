@@ -29,9 +29,7 @@ from datetime import datetime
 import streamlit as st
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
-from langchain_community.llms import Ollama
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import cm
@@ -39,6 +37,8 @@ from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
+
+import rag_core   # shared RAG pipeline (retrieval, prompting, LLM, refusal gate)
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 CHROMA_DIR     = "./chroma_db"
@@ -85,13 +85,16 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ── Cached resources ───────────────────────────────────────────────────────────
+# The embedding model, vector store and LLM all live in rag_core (one source of
+# truth, shared with the eval harness and Level 2). Wrap them so Streamlit shows
+# a spinner on first load.
 @st.cache_resource(show_spinner="Loading embedding model…")
 def load_embeddings():
-    return HuggingFaceEmbeddings(model_name=EMBED_MODEL)
+    return rag_core.get_embeddings()
 
 @st.cache_resource(show_spinner="Connecting to Llama 3 via Ollama…")
 def load_llm():
-    return Ollama(model=LLM_MODEL, temperature=0.1)
+    return rag_core.get_llm()
 
 # ── Ingested docs tracker ──────────────────────────────────────────────────────
 def load_ingested() -> list:
@@ -133,94 +136,41 @@ def ingest_pdf(file_path: str, original_name: str, embeddings) -> tuple:
     if original_name in ingested:
         return 0, True   # duplicate — skip
 
-    loader   = PyPDFLoader(file_path)
-    pages    = loader.load()
-    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+    pages    = PyPDFLoader(file_path).load()
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=rag_core.CHUNK_SIZE if hasattr(rag_core, "CHUNK_SIZE") else 1000,
+        chunk_overlap=150,
+    )
     chunks   = splitter.split_documents(pages)
+
+    # Attach the same document-level metadata the batch ingester uses, so
+    # uploaded PDFs behave identically (reference number in source tag, etc.).
+    meta = rag_core.doc_meta_for(original_name, pages[0].page_content if pages else "")
+    label = f"{meta['title']} | Ref: {meta['ref']} | Dated: {meta['date']}"
+    for ch in chunks:
+        ch.page_content = f"[{label}]\n{ch.page_content}"
+        ch.metadata["doc_title"] = meta["title"]
+        ch.metadata["doc_ref"]   = meta["ref"]
+        ch.metadata["doc_date"]  = meta["date"]
 
     if os.path.exists(CHROMA_DIR):
         vs = Chroma(persist_directory=CHROMA_DIR, embedding_function=embeddings)
         vs.add_documents(chunks)
     else:
         Chroma.from_documents(chunks, embeddings, persist_directory=CHROMA_DIR)
+    rag_core.reset_vectorstore()   # drop cached handle so new chunks are visible
 
     ingested.append(original_name)
     save_ingested(ingested)
     return len(chunks), False
 
 
-# Maps query keywords → specific document filenames for targeted retrieval.
-# When a user asks about a specific circular by date or topic, we inject
-# chunks from that document directly, bypassing pure semantic search.
-DOC_KEYWORD_MAP = {
-    r"june\s*2025|jun\s*2025|lodr relaxation|regulation 58\(1\)|reg 58":
-        "18__SEBI_Circular_dated_June_05_2025.pdf",
-    r"upi.*intermediar|intermediar.*upi|upi payment|payment.*upi":
-        "1749641449497.pdf",
-    r"october\s*2025|oct\s*2025|october 15":
-        "39_SEBI_Circular_dated_October_15_2025.pdf",
-    r"july\s*2025|jul\s*2025|master circular.*ncs|ncs.*master circular":
-        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
-    r"jan\w*\s*2026|january\s*2026":
-        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
-}
-
-
-def retrieve_and_build_prompt(query: str, embeddings) -> tuple:
-    """
-    Hybrid retrieval:
-    1. Semantic search (MMR) for broadly relevant chunks
-    2. If query references a specific document, directly inject chunks from it
-    This prevents large documents from drowning out smaller specific ones.
-    """
-    vs = Chroma(persist_directory=CHROMA_DIR, embedding_function=embeddings)
-
-    # Step 1 — MMR semantic search
-    retriever = vs.as_retriever(
-        search_type="mmr",
-        search_kwargs={"k": 4, "fetch_k": 30}
-    )
-    docs = list(retriever.invoke(query))
-
-    # Step 2 — Check if query mentions a specific document → inject directly
-    query_lower = query.lower()
-    for pattern, filename in DOC_KEYWORD_MAP.items():
-        if re.search(pattern, query_lower):
-            src_path = f"./docs\\{filename}"
-            targeted = vs.similarity_search(
-                query, k=4,
-                filter={"source": {"$eq": src_path}}
-            )
-            # Add targeted chunks not already in results
-            existing = {d.page_content for d in docs}
-            injected = 0
-            for td in targeted:
-                if td.page_content not in existing and injected < 3:
-                    docs.append(td)
-                    injected += 1
-            break
-
-    # Step 3 — Build labelled context
-    context = "\n\n".join(
-        f"[Source: {Path(doc.metadata.get('source', 'Unknown')).name}, "
-        f"Page {doc.metadata.get('page', '?')}]\n{doc.page_content}"
-        for doc in docs
-    )
-
-    prompt = f"""You are a SEBI compliance expert assistant working at EY (Ernst & Young).
-Use the context below, extracted from official SEBI circulars, to answer the question
-accurately and concisely. Each chunk is labelled with its source document and page.
-Cite specific regulation numbers or circular references when available.
-If the answer is not in the context, say exactly:
-"This information is not available in the uploaded documents."
-
-Context:
-{context}
-
-Question: {query}
-
-Answer:"""
-
+# Retrieval, prompting and the out-of-scope refusal gate all live in rag_core
+# now — the same code the evaluation harness and Level 2 use. This thin wrapper
+# keeps the call site below unchanged.
+def retrieve_and_build_prompt(query: str, embeddings=None) -> tuple:
+    docs = rag_core.retrieve(query)
+    prompt = rag_core.build_prompt(docs, query)
     return docs, prompt
 
 
@@ -555,15 +505,21 @@ if user_input:
 
     with st.chat_message("assistant"):
 
-        # 1. Retrieve relevant chunks + build prompt (fast)
-        with st.spinner("Searching circulars…"):
-            sources, prompt = retrieve_and_build_prompt(user_input, embeddings)
+        # 1. Relevance gate — refuse out-of-scope queries instead of guessing
+        if rag_core.min_distance(user_input) > rag_core.REFUSE_DISTANCE:
+            answer  = rag_core.REFUSAL_LINE
+            sources = []
+            st.markdown(answer)
+        else:
+            # 2. Retrieve relevant chunks + build prompt (fast)
+            with st.spinner("Searching circulars…"):
+                sources, prompt = retrieve_and_build_prompt(user_input)
 
-        # 2. Stream the LLM response word by word
-        llm    = load_llm()
-        answer = st.write_stream(llm.stream(prompt))   # streams & returns full string
+            # 3. Stream the LLM response word by word
+            llm    = load_llm()
+            answer = st.write_stream(llm.stream(prompt))   # streams & returns full string
 
-        # 3. Show source excerpts
+        # 4. Show source excerpts + follow-up suggestions (only for real answers)
         if sources:
             with st.expander("📄 Source excerpts from circulars"):
                 for i, doc in enumerate(sources[:3], 1):
@@ -574,9 +530,12 @@ if user_input:
                     if i < min(3, len(sources)):
                         st.divider()
 
-        # 4. Generate follow-up suggestions
-        with st.spinner("Generating suggestions…"):
-            st.session_state.suggestions = generate_suggestions(user_input, answer, llm)
+            with st.spinner("Generating suggestions…"):
+                st.session_state.suggestions = generate_suggestions(
+                    user_input, answer, load_llm()
+                )
+        else:
+            st.session_state.suggestions = []
 
     # 5. Save to session + persist to disk
     st.session_state.messages.append({"role": "assistant", "content": answer})

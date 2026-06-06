@@ -1,0 +1,245 @@
+{
+  "_about": "Gold-standard Q&A set for evaluating the EY SEBI Compliance Bot. Every answer is grounded in the actual text of the source PDFs (see 'source_note'). Scoring: a question is answered correctly if all strings in 'must_all' appear (case-insensitive) AND for each group in 'any_of' at least one variant appears. For out-of-scope questions (answerable=false), correct = the bot returns the refusal line. 'expected_doc' is the document the right chunk should be retrieved from (null for out-of-scope).",
+  "questions": [
+    {
+      "id": "q01",
+      "question": "What is the deadline for the limited relaxation from Regulation 58(1)(b) granted in the June 2025 SEBI LODR circular?",
+      "category": "deadline_date",
+      "expected_doc": "18__SEBI_Circular_dated_June_05_2025.pdf",
+      "answerable": true,
+      "must_all": [],
+      "any_of": [["september 30, 2025", "30 september 2025", "september 30 2025", "30.09.2025"]],
+      "source_note": "Para 4.2: relaxation for the period June 06, 2025 to September 30, 2025. This is the original failure case."
+    },
+    {
+      "id": "q02",
+      "question": "What is the circular reference number of the June 5, 2025 SEBI circular on LODR relaxation?",
+      "category": "reg_number",
+      "expected_doc": "18__SEBI_Circular_dated_June_05_2025.pdf",
+      "answerable": true,
+      "must_all": ["2025/83"],
+      "any_of": [],
+      "source_note": "Header: SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2025/83"
+    },
+    {
+      "id": "q03",
+      "question": "Which specific SEBI LODR regulation is being relaxed in the June 5, 2025 circular?",
+      "category": "reg_number",
+      "expected_doc": "18__SEBI_Circular_dated_June_05_2025.pdf",
+      "answerable": true,
+      "must_all": ["58(1)(b)"],
+      "any_of": [],
+      "source_note": "Para 1: Regulation 58(1)(b) of the LODR Regulations."
+    },
+    {
+      "id": "q04",
+      "question": "For the June 06 to September 30, 2025 relaxation period, what condition must entities meet regarding advertisements?",
+      "category": "factual_single",
+      "expected_doc": "18__SEBI_Circular_dated_June_05_2025.pdf",
+      "answerable": true,
+      "must_all": ["52(8)"],
+      "any_of": [["web-link", "web link", "weblink"]],
+      "source_note": "Para 4.2: advertisement under Regulation 52(8) shall disclose the web-link to the statement."
+    },
+    {
+      "id": "q05",
+      "question": "Under which merchant category code are the @valid UPI handles for SEBI intermediaries exclusively designated?",
+      "category": "factual_single",
+      "expected_doc": "1749641449497.pdf",
+      "answerable": true,
+      "must_all": ["6211"],
+      "any_of": [],
+      "source_note": "Para 3.1: handle @valid exclusively designated under merchant category code 6211."
+    },
+    {
+      "id": "q06",
+      "question": "What is the upper UPI transaction limit per day for capital market transactions in the June 2025 UPI circular?",
+      "category": "factual_single",
+      "expected_doc": "1749641449497.pdf",
+      "answerable": true,
+      "must_all": [],
+      "any_of": [["5 lakh", "5 lakhs", "5,00,000", "500,000", "five lakh"]],
+      "source_note": "Para 4.2: upper limit of up to Rs 5 lakhs per day."
+    },
+    {
+      "id": "q07",
+      "question": "What is the name of the SEBI functionality that lets investors verify the authenticity of an intermediary's UPI ID?",
+      "category": "factual_single",
+      "expected_doc": "1749641449497.pdf",
+      "answerable": true,
+      "must_all": ["sebi check"],
+      "any_of": [],
+      "source_note": "Para 5.1: functionality named 'SEBI Check'."
+    },
+    {
+      "id": "q08",
+      "question": "What UPI handle format do SEBI-registered intermediaries use for collecting payments from investors?",
+      "category": "factual_single",
+      "expected_doc": "1749641449497.pdf",
+      "answerable": true,
+      "must_all": ["@valid"],
+      "any_of": [],
+      "source_note": "Para 2.1: handle '@valid' combined with the name of the bank, e.g. abc.brk@validhdfc."
+    },
+    {
+      "id": "q09",
+      "question": "Is the structured UPI mechanism mandatory for investors, for intermediaries, or both?",
+      "category": "factual_single",
+      "expected_doc": "1749641449497.pdf",
+      "answerable": true,
+      "must_all": ["intermediaries"],
+      "any_of": [["optional"], ["mandatory"]],
+      "source_note": "Para 1.3: optional for investors, but mandatory for intermediaries to obtain and make available."
+    },
+    {
+      "id": "q10",
+      "question": "From what date are the standardised, validated and exclusive UPI IDs available to investors?",
+      "category": "deadline_date",
+      "expected_doc": "1749641449497.pdf",
+      "answerable": true,
+      "must_all": [],
+      "any_of": [["october 01, 2025", "october 1, 2025", "1 october 2025", "01 october 2025", "oct 01, 2025", "oct 1, 2025"]],
+      "source_note": "Para 8: available for investors w.e.f. October 01, 2025."
+    },
+    {
+      "id": "q11",
+      "question": "By when must intermediaries discontinue the use of their old UPI IDs after the June 2025 UPI circular?",
+      "category": "factual_single",
+      "expected_doc": "1749641449497.pdf",
+      "answerable": true,
+      "must_all": ["180"],
+      "any_of": [],
+      "source_note": "Para 7 timeline table: Discontinuation of old UPI IDs at T + 180 Days."
+    },
+    {
+      "id": "q12",
+      "question": "What subject matter does the October 15, 2025 SEBI master circular cover?",
+      "category": "factual_single",
+      "expected_doc": "39_SEBI_Circular_dated_October_15_2025.pdf",
+      "answerable": true,
+      "must_all": [],
+      "any_of": [["non-convertible securities", "non convertible securities"]],
+      "source_note": "Subject: Master Circular for issue and listing of Non-convertible Securities, Securitised Debt Instruments, Security Receipts, Municipal Debt Securities and Commercial Paper."
+    },
+    {
+      "id": "q13",
+      "question": "Up to what date does the October 2025 NCS master circular incorporate prior circulars?",
+      "category": "deadline_date",
+      "expected_doc": "39_SEBI_Circular_dated_October_15_2025.pdf",
+      "answerable": true,
+      "must_all": [],
+      "any_of": [["june 30, 2025", "30 june 2025", "june 30 2025"]],
+      "source_note": "Para 4: updated to incorporate provisions of circulars issued till June 30, 2025."
+    },
+    {
+      "id": "q14",
+      "question": "The October 2025 NCS master circular is based on which year's SEBI NCS Regulations?",
+      "category": "definition",
+      "expected_doc": "39_SEBI_Circular_dated_October_15_2025.pdf",
+      "answerable": true,
+      "must_all": ["2021"],
+      "any_of": [],
+      "source_note": "Para 2: SEBI (Issue and Listing of Non-Convertible Securities) Regulations, 2021."
+    },
+    {
+      "id": "q15",
+      "question": "What is the reference number of the July 11, 2025 SEBI master circular on LODR for non-convertible securities?",
+      "category": "reg_number",
+      "expected_doc": "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+      "answerable": true,
+      "must_all": ["0000000103"],
+      "any_of": [],
+      "source_note": "Header: SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2025/0000000103, July 11, 2025."
+    },
+    {
+      "id": "q16",
+      "question": "What was the July 2025 NCS LODR master circular called before it was renamed in June 2023?",
+      "category": "factual_single",
+      "expected_doc": "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+      "answerable": true,
+      "must_all": ["operational circular"],
+      "any_of": [],
+      "source_note": "Footnote 1: Earlier called 'Operational Circular'; renamed as 'Master Circular' from June 30, 2023."
+    },
+    {
+      "id": "q17",
+      "question": "What is the subject of the SEBI master circular for listed entities that was last updated on January 30, 2026?",
+      "category": "factual_single",
+      "expected_doc": "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+      "answerable": true,
+      "must_all": [],
+      "any_of": [["listing obligations and disclosure requirements", "lodr"], ["listed entities"]],
+      "source_note": "Subject: Master Circular for compliance with the provisions of LODR Regulations 2015 by listed entities."
+    },
+    {
+      "id": "q18",
+      "question": "Up to what date does the January 30, 2026 listed-entities master circular consolidate circulars?",
+      "category": "deadline_date",
+      "expected_doc": "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+      "answerable": true,
+      "must_all": [],
+      "any_of": [["december 30, 2025", "30 december 2025", "dec 30, 2025"]],
+      "source_note": "Para 3: updated to include all relevant circulars issued till December 30, 2025."
+    },
+    {
+      "id": "q19",
+      "question": "When was the listed-entities LODR master circular originally first issued, before its later updates?",
+      "category": "factual_single",
+      "expected_doc": "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+      "answerable": true,
+      "must_all": [],
+      "any_of": [["july 11, 2023", "11 july 2023", "july 2023"]],
+      "source_note": "Para 2: a Master Circular dated July 11, 2023 was issued; later updated Nov 11 2024 and Jan 30 2026. Tricky provenance case."
+    },
+    {
+      "id": "q20",
+      "question": "Has the Regulation 58(1)(b) relaxation from the June 2025 circular expired, and if so when did the relaxation period end?",
+      "category": "conflict_supersession",
+      "expected_doc": "18__SEBI_Circular_dated_June_05_2025.pdf",
+      "answerable": true,
+      "must_all": [],
+      "any_of": [["september 30, 2025", "30 september 2025", "expired", "ended", "lapsed", "no longer"]],
+      "source_note": "Relaxation was time-bound to September 30, 2025. As of today (2026) it has expired. Tests temporal/conflict reasoning."
+    },
+    {
+      "id": "q21",
+      "question": "What are the SEBI margin requirements for intraday equity trading?",
+      "category": "out_of_scope",
+      "expected_doc": null,
+      "answerable": false,
+      "must_all": [],
+      "any_of": [],
+      "source_note": "None of the 5 documents cover intraday margin. Correct behaviour: return the refusal line."
+    },
+    {
+      "id": "q22",
+      "question": "What is the penalty for insider trading under the SEBI Prohibition of Insider Trading Regulations?",
+      "category": "out_of_scope",
+      "expected_doc": null,
+      "answerable": false,
+      "must_all": [],
+      "any_of": [],
+      "source_note": "PIT regulations are not in the knowledge base. Correct behaviour: refusal line."
+    },
+    {
+      "id": "q23",
+      "question": "What is the GST rate applicable to textile products in India?",
+      "category": "out_of_scope",
+      "expected_doc": null,
+      "answerable": false,
+      "must_all": [],
+      "any_of": [],
+      "source_note": "GST/taxation is outside the SEBI+RBI securities/banking corpus entirely. Correct behaviour: refusal line. (Replaced an earlier RBI-NBFC question that became answerable once the RBI corpus was added.)"
+    },
+    {
+      "id": "q24",
+      "question": "Which SEBI Act section is cited as the power under which the June 2025 UPI circular is issued?",
+      "category": "reg_number",
+      "expected_doc": "1749641449497.pdf",
+      "answerable": true,
+      "must_all": ["11(1)"],
+      "any_of": [],
+      "source_note": "Para 9: issued in exercise of powers conferred under Section 11(1) of the SEBI Act, 1992."
+    }
+  ]
+}

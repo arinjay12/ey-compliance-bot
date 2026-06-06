@@ -1,87 +1,96 @@
 """
 ingest.py
 ---------
-Run this ONCE to load all PDFs from the /docs folder into ChromaDB.
-After running, the knowledge base is saved to /chroma_db and persists.
+Builds the ChromaDB knowledge base from every PDF in ./docs.
 
-Usage:
+Run ONCE (or whenever documents change):
     python ingest.py
-"""
 
-""""
+What it does per document:
+  1. Loads the PDF and splits it into overlapping chunks.
+  2. Extracts document-level metadata (official reference number, date, title)
+     from page 1 — either from a curated map (for the core SEBI circulars) or
+     by auto-extraction (for any other document, e.g. the RBI corpus). This
+     metadata is attached to EVERY chunk so questions like "what is the circular
+     reference number?" are answerable from any retrieved chunk, not just the
+     header chunk (which is rarely retrieved).
+  3. Prepends a short label to each chunk so retrieval can match by name/date.
+  4. Embeds and stores everything in ./chroma_db.
 
-PDF uploaded
-    → Split into chunks (~500 words each, with 50-word overlap so context isn't cut off)
-    → Each chunk converted to a vector (list of numbers) by Sentence Transformers
-    →  All vectors stored in ChromaDB on your local machine
-
+Chunking note: chunk_size=1000/overlap=150 (was 500/50). Larger chunks keep
+timeline tables, footnotes and intro paragraphs intact — the 500-char size was
+fragmenting facts (e.g. the UPI 180-day timeline) so they were never retrieved.
 """
 import os
+import re
+import json
+
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 
-DOCS_DIR    = "./docs"
-CHROMA_DIR  = "./chroma_db"
-EMBED_MODEL = "all-MiniLM-L6-v2"
+import rag_core  # reuse the curated DOC_META
+
+DOCS_DIR      = "./docs"
+CHROMA_DIR    = "./chroma_db"
+EMBED_MODEL   = "all-MiniLM-L6-v2"
+INGESTED_FILE = "./ingested_docs.json"
+CHUNK_SIZE    = 1000
+CHUNK_OVERLAP = 150
+
 
 def main():
-    # Step 1 — Collect all PDFs from the docs folder
-    pdf_files = [f for f in os.listdir(DOCS_DIR) if f.endswith(".pdf")]
-
+    pdf_files = [f for f in os.listdir(DOCS_DIR) if f.lower().endswith(".pdf")]
     if not pdf_files:
-        print("No PDFs found in ./docs — please place your SEBI/RBI circulars there first.")
+        print("No PDFs found in ./docs.")
         return
+    print(f"Found {len(pdf_files)} PDF(s).\n")
 
-    print(f"Found {len(pdf_files)} PDF(s): {pdf_files}\n")
-
-    # Friendly labels for each document — used as prefix in every chunk so
-    # queries like "June 2025 circular" semantically match the right document
-    DOC_LABELS = {
-        "18__SEBI_Circular_dated_June_05_2025.pdf":
-            "SEBI Circular June 05 2025 - Limited relaxation LODR Regulation 58 non-convertible securities",
-        "1749641449497.pdf":
-            "SEBI Circular June 11 2025 - UPI payment mechanism SEBI registered intermediaries",
-        "39_SEBI_Circular_dated_October_15_2025.pdf":
-            "SEBI Master Circular October 15 2025 - Issue and listing non-convertible securities",
-        "SEBI_Master_Circular_LODR_NCS_July2025.pdf":
-            "SEBI Master Circular July 11 2025 - LODR listing obligations non-convertible securities commercial paper",
-        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf":
-            "SEBI Master Circular January 30 2026 - LODR compliance listed entities consolidated",
-    }
-
-    # Step 2 — Load and split each PDF into chunks
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP
+    )
     all_chunks = []
-    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
 
-    for filename in pdf_files:
+    for filename in sorted(pdf_files):
         filepath = os.path.join(DOCS_DIR, filename)
-        label    = DOC_LABELS.get(filename, filename.replace(".pdf", "").replace("_", " "))
-        print(f"Loading: {filename}...")
-        loader = PyPDFLoader(filepath)
-        pages  = loader.load()
+        try:
+            pages = PyPDFLoader(filepath).load()
+        except Exception as e:
+            print(f"  ! skipped {filename}: {e}")
+            continue
+        if not pages:
+            print(f"  ! skipped {filename}: no extractable text")
+            continue
+
+        # metadata: curated map wins; otherwise auto-extract from page 1
+        meta = rag_core.doc_meta_for(filename, pages[0].page_content)
+
         chunks = splitter.split_documents(pages)
-
-        # Prepend document label to each chunk so retrieval can match by doc name/date
-        for chunk in chunks:
-            chunk.page_content = f"[{label}]\n{chunk.page_content}"
-
+        label = f"{meta['title']} | Ref: {meta['ref']} | Dated: {meta['date']}"
+        for ch in chunks:
+            ch.page_content = f"[{label}]\n{ch.page_content}"
+            ch.metadata["doc_title"] = meta["title"]
+            ch.metadata["doc_ref"]   = meta["ref"]
+            ch.metadata["doc_date"]  = meta["date"]
         all_chunks.extend(chunks)
-        print(f"  -> {len(pages)} pages, {len(chunks)} chunks created")
+        print(f"  {filename:<60} {len(pages):>4}p  {len(chunks):>4} chunks  "
+              f"ref={meta['ref'][:40]}")
 
-    print(f"\nTotal chunks across all docs: {len(all_chunks)}")
-
-    # Step 3 — Create embeddings and store in ChromaDB
-    print("\nLoading embedding model (all-MiniLM-L6-v2)...")
-    print("Note: First run downloads ~90MB model — needs internet once.")
+    print(f"\nTotal chunks: {len(all_chunks)}")
+    print("Loading embedding model…")
     embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
 
-    print("Storing chunks in ChromaDB...")
+    print("Storing in ChromaDB…")
     Chroma.from_documents(all_chunks, embeddings, persist_directory=CHROMA_DIR)
 
-    print("\nDone! Knowledge base saved to ./chroma_db")
-    print("You can now run: python query.py  OR  streamlit run app.py")
+    # keep the app sidebar's document list in sync
+    with open(INGESTED_FILE, "w", encoding="utf-8") as f:
+        json.dump(sorted(pdf_files), f)
+
+    print(f"\nDone. Knowledge base saved to {CHROMA_DIR}")
+    print(f"Ingested-docs list written to {INGESTED_FILE}")
+
 
 if __name__ == "__main__":
     main()

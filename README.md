@@ -11,7 +11,7 @@ All processing happens **locally on your machine** — no data is sent to extern
 | Week | Dates | What Was Built | Status |
 |---|---|---|---|
 | [Week 1](weekly_progress/week1/WEEK1.md) | May 26 – Jun 1, 2026 | Project setup · Level 1 (Q&A) · Level 2 (monitoring + email) | Complete |
-| [Week 2](weekly_progress/week2/WEEK2.md) | Jun 2 – Jun 8, 2026 | Retrieval fix · Level 3 (PDF/Excel export) | Complete |
+| [Week 2](weekly_progress/week2/WEEK2.md) | Jun 2 – Jun 8, 2026 | Level 3 (PDF/Excel export) · **evaluation harness · corpus 5→25 docs · pipeline hardening** | Complete |
 | Week 3 | Jun 9 – Jun 15, 2026 | Level 4 (charts) | Upcoming |
 | Week 4 | Jun 16 – Jun 22, 2026 | Level 5 (audio) | Upcoming |
 
@@ -28,6 +28,21 @@ All processing happens **locally on your machine** — no data is sent to extern
 | 3 | Download chat history as PDF / Excel report | ✅ Complete |
 | 4 | Chart responses for numerical / tabular data | Upcoming |
 | 5 | Audio input and audio responses | Upcoming |
+
+## Quality — Measured, Not Claimed
+
+The pipeline is evaluated against a gold Q&A set grounded in the source circulars
+(see [`evaluation/`](evaluation/)). On a **25-document** corpus:
+
+| Metric | RAG bot | Raw Llama 3 (no retrieval) |
+|---|---|---|
+| Factual accuracy (21 answerable questions) | **90.5%** | 14.3% |
+| Out-of-scope questions correctly refused (3) | **3 / 3** | 0 / 3 |
+| Retrieval hit-rate (hybrid) | **95.2%** | — |
+
+The bot is ~6× more accurate than using the LLM directly, and — unlike the raw LLM,
+which fabricates official circular numbers — it refuses every question outside its
+knowledge base. Run it yourself: `python evaluation/eval_answers.py`.
 
 ---
 
@@ -107,14 +122,21 @@ Daily trigger → fetch SEBI RSS + RBI circulars page
 ```
 ey-bot/
 ├── app.py                     # Main Streamlit chat UI (Levels 1, 2, 3)
-├── ingest.py                  # Processes PDFs into ChromaDB (run once)
+├── rag_core.py                # Shared RAG pipeline: retrieval, prompting, LLM, refusal gate
+├── ingest.py                  # Processes PDFs into ChromaDB with metadata (run once)
+├── download_docs.py           # Expands the corpus with public RBI Master Directions
 ├── query.py                   # Terminal-based Q&A for testing
 ├── level2.py                  # Automated daily monitoring + email alerts
 ├── demo_conflict.py           # Demonstrates conflict detection between stored docs
 ├── scraper_test.py            # Tests which regulatory sources are scrapable
 ├── requirements.txt           # All Python dependencies
-├── docs/                      # Place your PDF circulars here
+├── docs/                      # Place your PDF circulars here (gitignored)
 ├── chroma_db/                 # Auto-generated vector database (gitignored)
+├── evaluation/                # Gold Q&A set + eval harness + results
+│   ├── gold_qa.json
+│   ├── eval_retrieval.py
+│   ├── eval_answers.py
+│   └── EVAL_REPORT.md
 └── weekly_progress/           # Week-by-week progress writeups
     ├── week1/WEEK1.md
     └── week2/WEEK2.md
@@ -189,13 +211,18 @@ python demo_conflict.py
 
 ## Knowledge Base (current)
 
-| Document | Description |
+**25 documents · ~4,125 chunks.** Five core SEBI circulars plus 20 public RBI Master
+Directions (added to evaluate retrieval robustness at scale; download with
+`python download_docs.py --download 20`).
+
+| Core SEBI document | Description |
 |---|---|
 | SEBI Circular Jun 05, 2025 | Limited relaxation from LODR Regulation 58(1)(b) |
 | SEBI Circular Jun 11, 2025 | UPI payment mechanism for SEBI intermediaries |
 | SEBI Master Circular Oct 15, 2025 | Issue and listing of non-convertible securities |
 | SEBI Master Circular Jul 11, 2025 | LODR obligations — non-convertible securities |
 | SEBI Master Circular Jan 30, 2026 | Consolidated LODR compliance for listed entities |
+| + 20 RBI Master Directions | Public banking/NBFC regulations (corpus distractors) |
 
 ---
 

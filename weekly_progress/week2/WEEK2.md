@@ -117,3 +117,95 @@ Both exports appear as `st.download_button` elements in the sidebar under "Expor
 - `c277d1b` — Add Level 3: PDF and Excel export of chat history
 - `7b6a33d` — (remote) Minor README update from GitHub
 - `3d47006` — Add README with full project documentation *(end of Week 1)*
+
+---
+
+# Part 2 — Hardening & Evaluation
+
+After Levels 1–3, we deliberately **stopped adding features** and stress-tested
+what we had. The reasoning: a demo that answers five rehearsed questions is not the
+same as a tool a regulated client can stake compliance decisions on. The ChromaDB
+bug from Week 1 was the warning — it "worked" until we looked closely. So we built a
+way to *measure*, then expanded the corpus, then fixed what the measurements exposed.
+
+## 1. An evaluation harness (`evaluation/`)
+
+We can no longer judge quality by spot-checking a few questions. The harness:
+
+- `gold_qa.json` — 24 questions grounded in the actual text of the source circulars
+  (specific regulation numbers, deadlines, the supersession/conflict case, and
+  deliberately out-of-scope questions to test refusal).
+- `eval_retrieval.py` — measures whether the *correct document* is retrieved (fast,
+  no LLM).
+- `eval_answers.py` — measures answer correctness AND runs a **head-to-head against
+  the same LLM with no retrieval**, to prove the RAG pipeline beats using the model
+  directly.
+- `calibrate_gate.py` — calibrates the out-of-scope refusal threshold from data.
+
+## 2. Corpus expansion (5 → 25 documents)
+
+Five documents can't prove robustness — a pipeline that works on 5 can fall apart at
+50 when there are far more chances to retrieve the wrong thing. The client's real
+(confidential) documents aren't available, so we expanded with **20 public RBI Master
+Directions** (`download_docs.py`), auto-downloaded from `rbidocs.rbi.org.in`. These 20
+act as **distractors** for the existing SEBI questions — the real test of retrieval.
+
+Result: **4,125 chunks across 25 documents** (was ~2,965 across 5).
+
+## 3. The RAG pipeline, extracted and hardened (`rag_core.py`)
+
+The retrieval/prompting logic was tangled inside the Streamlit UI. We extracted it
+into `rag_core.py` — one source of truth shared by the app, Level 2, and the eval —
+which also fixed a real inefficiency (the UI was re-instantiating ChromaDB on *every
+query*). Then we fixed what the harness exposed:
+
+| Problem the harness caught | Root cause | Fix |
+|---|---|---|
+| Reg-number questions wrong | The official ref number lives only in the page-1 header chunk, which is rarely retrieved | Extract ref/date as **metadata** on every chunk; surface it in the prompt's source tag |
+| Out-of-scope questions answered | LLM answered from loosely-related chunks | Relevance gate + "a passing mention of a regulation is not the answer" instruction |
+| Over-refusal regression | Too-strict refusal prompt refused even when the answer was present | Rebalanced to "answer if present, refuse only if absent" |
+| Wrong document injected | Keyword map stopped at the first match | Inject from **all** matched documents |
+| Table/footnote facts lost | 500-char chunks fragmented them | 1,000-char chunks (150 overlap) |
+
+`ingest.py` now auto-extracts each document's reference number, date and title (curated
+values for the core SEBI circulars, regex auto-extraction for everything else), and
+`app.py` was rewired to use `rag_core` so the live UI gets every one of these fixes.
+
+## 4. Results — measured, before vs after
+
+| Metric | Baseline (5 docs) | **After (25 docs)** | Raw Llama 3 (no retrieval) |
+|---|---|---|---|
+| Factual accuracy | 71.4% (15/21) | **90.5% (19/21)** | 14.3% (3/21) |
+| Out-of-scope correctly refused | 1 / 3 | **3 / 3** | 0 / 3 |
+| Retrieval hit-rate (hybrid) | — | **95.2%** (vs 71.4% semantic-only) | — |
+
+Key takeaways:
+- **The bot is ~6× more accurate than using the LLM directly**, and the raw LLM
+  routinely *fabricated* official circular numbers (e.g. invented
+  `SEBI/HO/CFD/DIL/CIR/P/2022/0003`) and even denied real circulars existed.
+- **Accuracy went UP even though the corpus got 5× bigger and harder** — evidence the
+  pipeline scales, not just memorises five documents.
+- On 5 documents the keyword-injection step looked nearly useless (+4.8 pts). Against
+  20 distractor documents it is worth **+23.8 pts** — exactly why testing at scale
+  mattered.
+
+## 5. Honest limitations
+
+- **q04** — a question phrased across two dates ("June 06 to September 30, 2025") that
+  names no document or regulation; neither the keyword map nor semantic search
+  retrieves the right chunk. Over-tuning the regex to catch it would reintroduce the
+  brittleness we are trying to remove.
+- **q11** — the answer (a 180-day timeline) lives inside a PDF **table** that extracts
+  and embeds poorly, so it is never retrieved. This is a known hard problem in PDF RAG;
+  a proper fix needs table-aware parsing, logged as future work.
+
+## Files Added / Changed in Part 2
+
+| File | Change |
+|---|---|
+| `rag_core.py` | **New.** Shared RAG pipeline: cached embeddings/vector-store/LLM, hybrid retrieval, metadata source tags, relevance-gated refusal, vanilla-LLM baseline. |
+| `download_docs.py` | **New.** Downloads public RBI Master Direction PDFs to expand the corpus. |
+| `evaluation/` | **New.** Gold Q&A set, retrieval + answer eval scripts, gate calibration, results, and `EVAL_REPORT.md`. |
+| `ingest.py` | Rewritten: auto-extracts per-document metadata, 1,000-char chunks, keeps `ingested_docs.json` in sync. |
+| `app.py` | Rewired to use `rag_core` (no more per-query ChromaDB reload); relevance gate added to the chat flow. |
+| `requirements.txt` | Added `requests`, `beautifulsoup4`, `schedule`. |
