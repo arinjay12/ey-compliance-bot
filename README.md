@@ -29,7 +29,7 @@ All processing happens **locally on your machine** — no data is sent to extern
 | 4 | Chart responses for numerical / tabular data | Upcoming |
 | 5 | Audio input and audio responses | Upcoming |
 
-## Quality — Measured, Not Claimed
+## Evaluation
 
 The pipeline is evaluated against a gold Q&A set grounded in the source circulars
 (see [`evaluation/`](evaluation/)). On a **25-document** corpus:
@@ -40,9 +40,9 @@ The pipeline is evaluated against a gold Q&A set grounded in the source circular
 | Out-of-scope questions correctly refused (3) | **3 / 3** | 0 / 3 |
 | Retrieval hit-rate (hybrid) | **95.2%** | — |
 
-The bot is ~6× more accurate than using the LLM directly, and — unlike the raw LLM,
-which fabricates official circular numbers — it refuses every question outside its
-knowledge base. Run it yourself: `python evaluation/eval_answers.py`.
+The pipeline is ~6× more accurate than the same model without retrieval, and refuses
+questions outside the knowledge base rather than answering from unrelated text.
+Reproduce with `python evaluation/eval_answers.py`.
 
 ---
 

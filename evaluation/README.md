@@ -1,8 +1,7 @@
 # Evaluation Harness
 
-This folder is how we prove the compliance bot actually works — repeatably, with
-numbers — instead of spot-checking a few questions by hand. It exists because the
-early ChromaDB retrieval bug was invisible until we had a way to *measure*.
+A repeatable way to measure the compliance bot's quality: retrieval accuracy, answer
+correctness, and a comparison against the same LLM used without retrieval.
 
 ## What's here
 
