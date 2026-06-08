@@ -165,13 +165,9 @@ def ingest_pdf(file_path: str, original_name: str, embeddings) -> tuple:
     return len(chunks), False
 
 
-# Retrieval, prompting and the out-of-scope refusal gate all live in rag_core
-# now — the same code the evaluation harness and Level 2 use. This thin wrapper
-# keeps the call site below unchanged.
-def retrieve_and_build_prompt(query: str, embeddings=None) -> tuple:
-    docs = rag_core.retrieve(query)
-    prompt = rag_core.build_prompt(docs, query)
-    return docs, prompt
+# Retrieval, prompting and the out-of-scope refusal gate all live in rag_core —
+# the same code the evaluation harness and Level 2 use. The chat handler below
+# calls rag_core.retrieve / build_prompt directly (passing chat history).
 
 
 def generate_suggestions(query: str, answer: str, llm) -> list:
@@ -505,17 +501,25 @@ if user_input:
 
     with st.chat_message("assistant"):
 
-        # 1. Relevance gate — refuse out-of-scope queries instead of guessing
-        if rag_core.min_distance(user_input) > rag_core.REFUSE_DISTANCE:
+        # 1. For a follow-up, fold in the previous question so retrieval has the
+        #    topic context ("does that apply to commercial paper?" alone finds
+        #    nothing). Self-contained questions are unchanged.
+        history = st.session_state.messages[:-1]   # everything before this turn
+        search_query = rag_core.build_search_query(user_input, history)
+
+        # 2. Relevance gate — refuse out-of-scope queries instead of guessing
+        if rag_core.min_distance(search_query) > rag_core.REFUSE_DISTANCE:
             answer  = rag_core.REFUSAL_LINE
             sources = []
             st.markdown(answer)
         else:
-            # 2. Retrieve relevant chunks + build prompt (fast)
+            # 3. Retrieve on the expanded query; the answer prompt keeps the
+            #    natural question + recent conversation for reference resolution.
             with st.spinner("Searching circulars…"):
-                sources, prompt = retrieve_and_build_prompt(user_input)
+                sources = rag_core.retrieve(search_query)
+                prompt  = rag_core.build_prompt(sources, user_input, history=history)
 
-            # 3. Stream the LLM response word by word
+            # 4. Stream the LLM response word by word
             llm    = load_llm()
             answer = st.write_stream(llm.stream(prompt))   # streams & returns full string
 

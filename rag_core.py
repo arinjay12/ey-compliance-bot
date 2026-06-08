@@ -260,11 +260,27 @@ def min_distance(query: str) -> float:
         return 0.0   # fail open: don't block answering if scoring breaks
 
 
-def build_prompt(docs: list, query: str) -> str:
-    """Assemble the grounded prompt sent to the LLM."""
+def build_prompt(docs: list, query: str, history: list | None = None) -> str:
+    """Assemble the grounded prompt sent to the LLM. When `history` is given, a
+    short conversation block is included so the model can resolve references like
+    'it' or 'that' in a follow-up — but the answer itself must still come from the
+    Context. With no history the prompt is byte-identical to the single-turn one
+    (so the evaluation harness is unaffected)."""
     context = "\n\n".join(
         f"{source_tag(doc)}\n{doc.page_content}" for doc in docs
     )
+
+    convo_block = ""
+    convo_rule = ""
+    if history:
+        recent = format_history(history, max_turns=2)
+        if recent:
+            convo_block = (
+                "Conversation so far (use ONLY to understand what the question "
+                "refers to, e.g. resolve 'it' or 'that'):\n" + recent + "\n\n"
+            )
+            convo_rule = ("\n- Use the conversation above only to interpret the "
+                          "question; base the answer itself only on the Context.")
 
     return f"""You are a SEBI/RBI compliance expert assistant working at EY (Ernst & Young).
 Answer the question using ONLY the context below, extracted from official SEBI and
@@ -285,9 +301,9 @@ Rules:
 - Each chunk's "Source" label gives the document's verified title, official reference
   number ("Ref No") and date. When asked for a circular's reference number or date,
   use the "Ref No"/"Dated" fields from the Source label of the relevant chunk. Never
-  invent a reference number and never quote a file name.
+  invent a reference number and never quote a file name.{convo_rule}
 
-Context:
+{convo_block}Context:
 {context}
 
 Question: {query}
@@ -295,20 +311,74 @@ Question: {query}
 Answer:"""
 
 
+# ── Conversational follow-ups (query condensation) ──────────────────────────
+# A follow-up like "does that apply to commercial paper too?" can't be retrieved
+# on its own — it has no subject. Before retrieving, we rewrite it into a
+# standalone question using the recent chat history. We only spend the extra LLM
+# call when the question actually looks like a follow-up (short, or contains a
+# back-reference), so self-contained questions stay fast.
+_FOLLOWUP_CUES = re.compile(
+    r"\b(it|its|it's|that|this|those|these|they|them|their|the same|same one|"
+    r"what about|how about|and the|and for|and its|does that|do they|is it|"
+    r"are they|the above|aforementioned|former|latter|then what|what else)\b",
+    re.I,
+)
+
+
+def needs_condensation(question: str) -> bool:
+    q = question.strip()
+    if len(q.split()) <= 6:          # very short -> probably leans on context
+        return True
+    return bool(_FOLLOWUP_CUES.search(q))
+
+
+def format_history(history: list, max_turns: int = 4) -> str:
+    """Render the last few chat turns as plain text for the condense prompt."""
+    recent = [m for m in history if m.get("role") in ("user", "assistant")][-max_turns:]
+    lines = []
+    for m in recent:
+        who = "User" if m["role"] == "user" else "Assistant"
+        lines.append(f"{who}: {m['content'].strip()}")
+    return "\n".join(lines)
+
+
+def build_search_query(question: str, history: list | None) -> str:
+    """For a follow-up, prepend the previous user question so retrieval has the
+    topic context — "does that apply to commercial paper?" on its own retrieves
+    nothing. Returns the question unchanged when it already stands alone.
+
+    We use cheap concatenation rather than an LLM rewrite on purpose: the local
+    8B model condenses unreliably (it leaves "it"/"that" unresolved), and this
+    keeps follow-ups fast (no extra LLM call). The model resolves the reference
+    itself at answer time, using the conversation block in the prompt.
+    """
+    if not history or not needs_condensation(question):
+        return question
+    prev_user = ""
+    for m in reversed(history):
+        if m.get("role") == "user":
+            prev_user = (m.get("content") or "").strip()
+            break
+    return f"{prev_user} {question}".strip() if prev_user else question
+
+
 # ── Answer generation ───────────────────────────────────────────────────────
-def answer_rag(query: str, use_hybrid: bool = True) -> tuple:
+def answer_rag(query: str, use_hybrid: bool = True, history: list | None = None) -> tuple:
     """
     Full RAG answer. Returns (answer_text, source_docs).
 
-    Relevance gate: if nothing in the corpus is genuinely close to the query,
-    refuse immediately rather than letting the LLM answer from loosely-related
-    chunks. This is the out-of-scope safety guard for a compliance tool.
+    For follow-ups (when `history` is given) retrieval runs on the previous
+    question folded in, while the answer prompt keeps the natural question plus
+    the recent conversation so the model can resolve references. The relevance
+    gate then refuses out-of-scope queries instead of guessing.
     """
-    if min_distance(query) > REFUSE_DISTANCE:
+    search_query = build_search_query(query, history)
+
+    if min_distance(search_query) > REFUSE_DISTANCE:
         return REFUSAL_LINE, []
 
-    docs = retrieve(query, use_hybrid=use_hybrid)
-    prompt = build_prompt(docs, query)
+    docs = retrieve(search_query, use_hybrid=use_hybrid)
+    prompt = build_prompt(docs, query, history=history)
     answer = get_llm().invoke(prompt)
     return answer, docs
 
