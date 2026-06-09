@@ -21,6 +21,7 @@ import os
 import re
 import json
 import shutil
+import hashlib
 import tempfile
 from io import BytesIO
 from pathlib import Path
@@ -40,6 +41,7 @@ from openpyxl.styles import Font, PatternFill, Alignment
 
 import rag_core   # shared RAG pipeline (retrieval, prompting, LLM, refusal gate)
 import charts     # Level 4: turn numeric answers into charts
+import voice      # Level 5: local speech-to-text (ask by voice)
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 CHROMA_DIR     = "./chroma_db"
@@ -516,6 +518,21 @@ if st.session_state.suggestions:
         if cols[i].button(sug, key=f"sug_{i}", use_container_width=True):
             st.session_state["pending"] = sug
             st.rerun()
+
+# ── Voice input (Level 5) — ask by speaking ────────────────────────────────────
+with st.expander("🎤 Ask by voice"):
+    mic = st.audio_input("Record your question, then wait a moment for transcription")
+    if mic is not None:
+        sig = hashlib.md5(mic.getvalue()).hexdigest()
+        if st.session_state.get("last_audio_sig") != sig:   # only handle new audio
+            st.session_state["last_audio_sig"] = sig
+            with st.spinner("Transcribing your question…"):
+                spoken = voice.transcribe(mic.getvalue())
+            if spoken:
+                st.session_state["pending"] = spoken
+                st.rerun()
+            else:
+                st.warning("Couldn't catch that — please try recording again.")
 
 # ── Chat input ────────────────────────────────────────────────────────────────
 user_input = None

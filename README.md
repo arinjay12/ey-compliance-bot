@@ -28,7 +28,7 @@ All processing happens **locally on your machine** — no data is sent to extern
 | 2 | Automated web monitoring + conflict detection + email alerts | ✅ Complete |
 | 3 | Download chat history as PDF / Excel report | ✅ Complete |
 | 4 | Chart responses for numerical / tabular data | ✅ Complete |
-| 5 | Audio input and audio responses | Upcoming |
+| 5 | Audio input (ask by voice) | ✅ Complete · spoken answers optional |
 
 ## Evaluation
 
@@ -78,6 +78,15 @@ Reproduce with `python evaluation/eval_answers.py`.
   stay fast)
 - Charts persist in the chat history
 - Example query: *"What are the UPI transaction limits for capital market transactions?"*
+
+### Level 5 — Voice Input
+- Ask questions by **speaking** — a built-in microphone records your question
+- Transcribed **locally** with faster-whisper (runs on CPU, offline — nothing leaves
+  the machine, consistent with the rest of the design)
+- The transcribed text flows into the same Q&A pipeline as typed questions
+- Model downloads once (~140 MB) on first use
+- (Spoken answers / text-to-speech were left out for now to keep everything offline;
+  the natural-voice option would require sending text to a cloud service)
 
 ---
 
