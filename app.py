@@ -39,6 +39,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 
 import rag_core   # shared RAG pipeline (retrieval, prompting, LLM, refusal gate)
+import charts     # Level 4: turn numeric answers into charts
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 CHROMA_DIR     = "./chroma_db"
@@ -498,9 +499,13 @@ with st.sidebar:
     st.caption("EY Compliance Bot  ·  Llama 3 via Ollama  ·  ChromaDB")
 
 # ── Chat history display ───────────────────────────────────────────────────────
-for msg in st.session_state.messages:
+for i, msg in enumerate(st.session_state.messages):
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
+        if msg.get("chart"):   # Level 4: re-render the chart with the answer
+            st.caption("📊 Visualised from the answer")
+            st.plotly_chart(charts.build_figure(msg["chart"]),
+                            use_container_width=True, key=f"hist_chart_{i}")
 
 # ── Trailing suggestions ───────────────────────────────────────────────────────
 if st.session_state.suggestions:
@@ -560,6 +565,7 @@ if user_input:
             answer = st.write_stream(llm.stream(prompt))   # streams & returns full string
 
         # 4. Show source excerpts + follow-up suggestions (only for real answers)
+        chart_spec = None
         if sources:
             with st.expander("📄 Source excerpts from circulars"):
                 for i, doc in enumerate(sources[:3], 1):
@@ -569,6 +575,13 @@ if user_input:
                     st.text(doc.page_content[:280] + "…")
                     if i < min(3, len(sources)):
                         st.divider()
+
+            # Level 4 — if the answer has chartable numbers, build a chart
+            if charts.looks_chartable(answer):
+                with st.spinner("Charting the numbers…"):
+                    chart_spec = charts.extract_chart_data(
+                        user_input, answer, load_llm()
+                    )
 
             with st.spinner("Generating suggestions…"):
                 st.session_state.suggestions = generate_suggestions(
@@ -581,7 +594,10 @@ if user_input:
     write_audit(user_input, answer, sources,
                 refused=(answer == rag_core.REFUSAL_LINE))
 
-    # 6. Save to session + persist to disk
-    st.session_state.messages.append({"role": "assistant", "content": answer})
+    # 6. Save to session + persist to disk (chart spec rides along with the message)
+    msg = {"role": "assistant", "content": answer}
+    if chart_spec:
+        msg["chart"] = chart_spec
+    st.session_state.messages.append(msg)
     save_history(st.session_state.messages)
     st.rerun()

@@ -27,7 +27,7 @@ All processing happens **locally on your machine** — no data is sent to extern
 | 1 | Document Q&A + source citations + follow-up suggestions | ✅ Complete |
 | 2 | Automated web monitoring + conflict detection + email alerts | ✅ Complete |
 | 3 | Download chat history as PDF / Excel report | ✅ Complete |
-| 4 | Chart responses for numerical / tabular data | Upcoming |
+| 4 | Chart responses for numerical / tabular data | ✅ Complete |
 | 5 | Audio input and audio responses | Upcoming |
 
 ## Evaluation
@@ -69,6 +69,15 @@ Reproduce with `python evaluation/eval_answers.py`.
 - Download the full chat session as a formatted **PDF** (EY-branded, A4, timestamped)
 - Download as an **Excel** spreadsheet (Q&A rows, yellow header, zebra-striped)
 - Export buttons appear in the sidebar after the first answer
+
+### Level 4 — Chart Responses
+- When an answer contains numeric data (amounts, percentages, day-based timelines,
+  counts), the bot renders a chart beneath the text answer
+- The chart is extracted from the answer itself, so it always matches what was said,
+  and it only runs when the answer actually has chartable numbers (ordinary answers
+  stay fast)
+- Charts persist in the chat history
+- Example query: *"What are the UPI transaction limits for capital market transactions?"*
 
 ---
 
