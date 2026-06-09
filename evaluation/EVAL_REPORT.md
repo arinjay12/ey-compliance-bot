@@ -6,7 +6,7 @@ Automated evaluation of the RAG pipeline against a gold Q&A set grounded in the 
 
 | Metric | RAG bot | Vanilla LLM |
 |---|---|---|
-| Factual accuracy (n=21) | **90%** | 14% |
+| Factual accuracy (n=21) | **86%** | 19% |
 | Out-of-scope correctly refused (n=3) | **3/3** | 0/3 |
 | Out-of-scope hallucinations | 0 | 3 |
 
@@ -17,17 +17,17 @@ Automated evaluation of the RAG pipeline against a gold Q&A set grounded in the 
 | q01 | deadline_date | CORRECT | WRONG |
 | q02 | reg_number | CORRECT | WRONG |
 | q03 | reg_number | CORRECT | WRONG |
-| q04 | factual_single | WRONG | WRONG |
+| q04 | factual_single | CORRECT | WRONG |
 | q05 | factual_single | CORRECT | WRONG |
-| q06 | factual_single | CORRECT | WRONG |
+| q06 | factual_single | CORRECT | CORRECT |
 | q07 | factual_single | CORRECT | WRONG |
-| q08 | factual_single | CORRECT | WRONG |
+| q08 | factual_single | WRONG | WRONG |
 | q09 | factual_single | CORRECT | WRONG |
 | q10 | deadline_date | CORRECT | WRONG |
 | q11 | factual_single | WRONG | WRONG |
 | q12 | factual_single | CORRECT | WRONG |
 | q13 | deadline_date | CORRECT | WRONG |
-| q14 | definition | CORRECT | WRONG |
+| q14 | definition | WRONG | WRONG |
 | q15 | reg_number | CORRECT | WRONG |
 | q16 | factual_single | CORRECT | WRONG |
 | q17 | factual_single | CORRECT | CORRECT |

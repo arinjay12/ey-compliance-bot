@@ -92,22 +92,85 @@ DOC_META = {
     },
 }
 
-# Maps query keywords -> specific document filenames for targeted retrieval.
-# NOTE: this hardcoded map is a known limitation (it does not generalize to
-# unseen documents). The evaluation harness measures how much we actually
-# depend on it; the goal is to replace it with metadata-driven retrieval.
-DOC_KEYWORD_MAP = {
-    r"june[\s\w,]{0,12}2025|jun\s*2025|lodr relaxation|regulation\s*58|reg\s*58|58\(1\)":
-        "18__SEBI_Circular_dated_June_05_2025.pdf",
-    r"upi.*intermediar|intermediar.*upi|upi payment|payment.*upi|upi id|upi handle|sebi check":
-        "1749641449497.pdf",
-    r"october\s*2025|oct\s*2025|october 15":
-        "39_SEBI_Circular_dated_October_15_2025.pdf",
-    r"july\s*2025|jul\s*2025|master circular.*ncs|ncs.*master circular":
-        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
-    r"jan\w*\s*2026|january\s*2026":
-        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
-}
+# ── Metadata-driven document targeting ──────────────────────────────────────
+# Replaces the old hardcoded keyword->filename map (which only worked for our
+# five demo documents). We detect dates and reference numbers in the query and
+# match them against the doc_date / doc_ref metadata stored on every chunk, so
+# retrieval can target the right document by its OWN metadata — including
+# documents a client uploads that we have never seen.
+_QMONTHS = ("january", "february", "march", "april", "may", "june", "july",
+            "august", "september", "october", "november", "december")
+_QMONTH_RE = re.compile(r"\b(" + "|".join(_QMONTHS) + r")\b", re.I)
+_QYEAR_RE  = re.compile(r"\b(?:19|20)\d{2}\b")
+_QREF_RE   = re.compile(r"\b(?:[A-Za-z]{2,}/[A-Za-z0-9/\-_().]{3,}/\d+|\d{3,4}/\d{2,})\b")
+MAX_MATCHED_DOCS = 3
+
+_doc_catalog = None
+
+
+def reset_catalog():
+    """Drop the cached document catalog (call after ingesting new documents)."""
+    global _doc_catalog
+    _doc_catalog = None
+
+
+def get_doc_catalog() -> dict:
+    """Map of source path -> {date, ref, title} (lower-cased), built from the
+    metadata on each chunk. Lets retrieval target documents by their own
+    metadata instead of a hardcoded list. Cached until reset_catalog()."""
+    global _doc_catalog
+    if _doc_catalog is not None:
+        return _doc_catalog
+    cat = {}
+    try:
+        got = get_vectorstore()._collection.get(include=["metadatas"])
+        for md in got.get("metadatas", []) or []:
+            src = md.get("source")
+            if src and src not in cat:
+                cat[src] = {
+                    "date":  (md.get("doc_date") or "").lower(),
+                    "ref":   (md.get("doc_ref") or "").lower(),
+                    "title": (md.get("doc_title") or "").lower(),
+                }
+    except Exception:
+        pass
+    _doc_catalog = cat
+    return cat
+
+
+def _month_year_pairs(query: str) -> set:
+    """Extract (month, year) pairs from the query. A year is paired with every
+    month appearing within ~40 chars before it, so 'July 2025' pairs cleanly and
+    'June 06 to September 30, 2025' pairs 2025 with both June and September.
+    Pairing avoids the false match where 'June 2023' + 'July 2025' would
+    otherwise match a June-2025 document on the loose month/year overlap."""
+    q = query.lower()
+    pairs = set()
+    for ym in _QYEAR_RE.finditer(query):
+        window = q[max(0, ym.start() - 40):ym.start()]
+        for mon in set(_QMONTH_RE.findall(window)):
+            pairs.add((mon.lower(), ym.group(0)))
+    return pairs
+
+
+def match_documents(query: str) -> list:
+    """Source paths whose metadata matches the query. A document matches if its
+    reference number appears in the query, or if a (month, year) pair from the
+    query both appear in its stored date. Capped at MAX_MATCHED_DOCS."""
+    cat = get_doc_catalog()
+    if not cat:
+        return []
+    refs  = {m.group(0).lower() for m in _QREF_RE.finditer(query)}
+    pairs = _month_year_pairs(query)
+
+    matched = []
+    for src, meta in cat.items():
+        if refs and meta["ref"] and any(r in meta["ref"] for r in refs):
+            matched.append(src)
+        elif pairs and meta["date"] and any(
+                mon in meta["date"] and yr in meta["date"] for mon, yr in pairs):
+            matched.append(src)
+    return matched[:MAX_MATCHED_DOCS]
 
 # ── Document metadata auto-extraction (for non-curated docs) ────────────────
 _MONTHS = ("January|February|March|April|May|June|July|August|September|"
@@ -177,9 +240,10 @@ def get_vectorstore():
 
 
 def reset_vectorstore():
-    """Drop the cached vector store handle (call after adding new documents)."""
+    """Drop cached vector store + catalog (call after adding new documents)."""
     global _vectorstore
     _vectorstore = None
+    reset_catalog()
 
 
 def get_llm(temperature: float = LLM_TEMPERATURE):
@@ -208,29 +272,36 @@ def retrieve(query: str, k: int = MMR_K, use_hybrid: bool = True) -> list:
     docs = list(retriever.invoke(query))
 
     if use_hybrid:
-        query_lower = query.lower()
         existing = {d.page_content for d in docs}
+        # Documents whose metadata (date / reference) matches the query.
+        matched = match_documents(query)
+        # Rank matched documents by how relevant their best chunk is to the
+        # query, then inject the most-relevant first. Without this, a date like
+        # "June 2025" matches two documents and an irrelevant one (e.g. the UPI
+        # circular) could consume the injection budget and starve the document
+        # that actually answers the question.
+        ranked = []
+        for src_path in matched:
+            hits = vs.similarity_search_with_score(
+                query, k=INJECT_FETCH, filter={"source": {"$eq": src_path}}
+            )
+            if hits:
+                ranked.append((hits[0][1], [h[0] for h in hits]))
+        ranked.sort(key=lambda x: x[0])   # smallest distance = most relevant
+
         total_injected = 0
-        # Inject from EVERY matched document (not just the first). A query like
-        # "old UPI IDs after the June 2025 circular" matches both the June and the
-        # UPI patterns — first-match-wins used to inject the wrong document.
-        for pattern, filename in DOC_KEYWORD_MAP.items():
+        for _best, chunks in ranked:
             if total_injected >= INJECT_MAX:
                 break
-            if re.search(pattern, query_lower):
-                src_path = f"./docs\\{filename}"
-                targeted = vs.similarity_search(
-                    query, k=INJECT_FETCH, filter={"source": {"$eq": src_path}}
-                )
-                per_doc = 0
-                for td in targeted:
-                    if (td.page_content not in existing
-                            and per_doc < INJECT_PER_DOC
-                            and total_injected < INJECT_MAX):
-                        docs.append(td)
-                        existing.add(td.page_content)
-                        per_doc += 1
-                        total_injected += 1
+            per_doc = 0
+            for td in chunks:
+                if (td.page_content not in existing
+                        and per_doc < INJECT_PER_DOC
+                        and total_injected < INJECT_MAX):
+                    docs.append(td)
+                    existing.add(td.page_content)
+                    per_doc += 1
+                    total_injected += 1
     return docs
 
 

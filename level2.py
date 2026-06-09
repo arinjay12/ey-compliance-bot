@@ -34,6 +34,13 @@ from bs4 import BeautifulSoup
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 
+# Load credentials from a local .env file if present (never hard-coded).
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:
+    pass
+
 # ── CONFIG — edit these before running ────────────────────────────────────────
 
 SEBI_RSS_URL = "https://www.sebi.gov.in/sebirss.xml"
@@ -42,10 +49,12 @@ CHROMA_DIR   = "./chroma_db"
 EMBED_MODEL  = "all-MiniLM-L6-v2"
 LLM_MODEL    = "llama3"
 
-# Email settings (see README below on how to set up Gmail App Password)
-SENDER_EMAIL    = "your_gmail@gmail.com"       # Gmail you'll send FROM
-SENDER_PASSWORD = "your_app_password_here"     # Gmail App Password (16 chars)
-RECEIVER_EMAIL  = "recipient@example.com"      # Who gets the alert email
+# Email settings — read from environment / .env, never hard-coded. Copy
+# .env.example to .env and fill in these three keys (see README for App Password):
+#   EY_BOT_SENDER_EMAIL, EY_BOT_SENDER_PASSWORD, EY_BOT_RECEIVER_EMAIL
+SENDER_EMAIL    = os.getenv("EY_BOT_SENDER_EMAIL", "")
+SENDER_PASSWORD = os.getenv("EY_BOT_SENDER_PASSWORD", "")
+RECEIVER_EMAIL  = os.getenv("EY_BOT_RECEIVER_EMAIL", "")
 
 # How far back to look for new circulars (in hours)
 # Set to 720 (30 days) for testing. Change back to 24 for production.
@@ -269,8 +278,9 @@ Keep your response under 200 words."""
 
 def send_email(subject: str, body: str):
     """Send an alert email via Gmail SMTP."""
-    if SENDER_EMAIL == "your_gmail@gmail.com":
-        print("\n  [EMAIL SKIPPED] — Configure SENDER_EMAIL and SENDER_PASSWORD first")
+    if not (SENDER_EMAIL and SENDER_PASSWORD and RECEIVER_EMAIL):
+        print("\n  [EMAIL SKIPPED] — set EY_BOT_SENDER_EMAIL / EY_BOT_SENDER_PASSWORD"
+              " / EY_BOT_RECEIVER_EMAIL in your .env")
         print(f"  Subject: {subject}")
         print(f"  Body preview: {body[:300]}")
         return

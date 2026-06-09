@@ -12,6 +12,7 @@ ingested_docs.json
 seen_circulars.json
 level2_status.json
 scraped_output.txt
+audit_log.jsonl
 
 # Python cache
 __pycache__/

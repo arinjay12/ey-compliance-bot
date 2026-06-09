@@ -12,8 +12,9 @@ All processing happens **locally on your machine** — no data is sent to extern
 |---|---|---|---|
 | [Week 1](weekly_progress/week1/WEEK1.md) | May 26 – Jun 1, 2026 | Project setup · Level 1 (Q&A) · Level 2 (monitoring + email) | Complete |
 | [Week 2](weekly_progress/week2/WEEK2.md) | Jun 2 – Jun 8, 2026 | Level 3 (PDF/Excel export) · **evaluation harness · corpus 5→25 docs · pipeline hardening** | Complete |
-| Week 3 | Jun 9 – Jun 15, 2026 | Level 4 (charts) | Upcoming |
-| Week 4 | Jun 16 – Jun 22, 2026 | Level 5 (audio) | Upcoming |
+| [Week 3](weekly_progress/week3/WEEK3.md) | Jun 9 – Jun 15, 2026 | **Conversational follow-ups · generalised retrieval · deployability hygiene** | Complete |
+| Week 4 | Jun 16 – Jun 22, 2026 | Level 4 (charts) | Upcoming |
+| Week 5 | Jun 23 – Jun 29, 2026 | Level 5 (audio) | Upcoming |
 
 > Detailed writeups of decisions, challenges, and solutions for each week are in the [`weekly_progress/`](weekly_progress/) folder.
 
@@ -36,12 +37,14 @@ The pipeline is evaluated against a gold Q&A set grounded in the source circular
 
 | Metric | RAG bot | Raw Llama 3 (no retrieval) |
 |---|---|---|
-| Factual accuracy (21 answerable questions) | **90.5%** | 14.3% |
+| Factual accuracy (21 answerable questions) | **86–90%** | ~15–19% |
 | Out-of-scope questions correctly refused (3) | **3 / 3** | 0 / 3 |
-| Retrieval hit-rate (hybrid) | **95.2%** | — |
+| Retrieval hit-rate (hybrid) | **100%** | — |
 
-The pipeline is ~6× more accurate than the same model without retrieval, and refuses
-questions outside the knowledge base rather than answering from unrelated text.
+The pipeline is several times more accurate than the same model without retrieval, and
+refuses questions outside the knowledge base rather than answering from unrelated text.
+The accuracy range reflects run-to-run nondeterminism in the local model (temperature
+0.1) on a few borderline questions; retrieval matching is deterministic.
 Reproduce with `python evaluation/eval_answers.py`.
 
 ---

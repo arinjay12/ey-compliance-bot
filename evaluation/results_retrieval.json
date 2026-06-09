@@ -1,8 +1,8 @@
 {
   "summary": {
     "n": 21,
-    "hybrid_hits": 20,
-    "hybrid_rate": 0.9523809523809523,
+    "hybrid_hits": 21,
+    "hybrid_rate": 1.0,
     "semantic_hits": 15,
     "semantic_rate": 0.7142857142857143
   },
@@ -18,6 +18,11 @@
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf"
@@ -40,6 +45,11 @@
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf"
@@ -62,6 +72,11 @@
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf"
@@ -77,13 +92,21 @@
       "id": "q04",
       "category": "factual_single",
       "expected": "18__SEBI_Circular_dated_June_05_2025.pdf",
-      "hybrid_hit": false,
+      "hybrid_hit": true,
       "semantic_hit": false,
       "hybrid_retrieved": [
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "RBI_RBI_doc_170MD.PDF",
         "RBI_RBI_doc_397MD7DCC951F9F014A738C60E0FBC1A73D70.PDF",
-        "39_SEBI_Circular_dated_October_15_2025.pdf"
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf",
+        "18__SEBI_Circular_dated_June_05_2025.pdf"
       ],
       "semantic_retrieved": [
         "39_SEBI_Circular_dated_October_15_2025.pdf",
@@ -102,9 +125,6 @@
         "1749641449497.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
-        "1749641449497.pdf",
-        "1749641449497.pdf",
-        "1749641449497.pdf",
         "1749641449497.pdf"
       ],
       "semantic_retrieved": [
@@ -125,6 +145,11 @@
         "RBI_RBI_doc_397MD7DCC951F9F014A738C60E0FBC1A73D70.PDF",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "RBI_RBI_doc_173MD.PDF",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf"
@@ -146,8 +171,7 @@
         "1749641449497.pdf",
         "1749641449497.pdf",
         "1749641449497.pdf",
-        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
-        "1749641449497.pdf"
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf"
       ],
       "semantic_retrieved": [
         "1749641449497.pdf",
@@ -166,10 +190,7 @@
         "1749641449497.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
-        "39_SEBI_Circular_dated_October_15_2025.pdf",
-        "1749641449497.pdf",
-        "1749641449497.pdf",
-        "1749641449497.pdf"
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
       ],
       "semantic_retrieved": [
         "1749641449497.pdf",
@@ -188,10 +209,7 @@
         "1749641449497.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "RBI_RBI_doc_397MD7DCC951F9F014A738C60E0FBC1A73D70.PDF",
-        "39_SEBI_Circular_dated_October_15_2025.pdf",
-        "1749641449497.pdf",
-        "1749641449497.pdf",
-        "1749641449497.pdf"
+        "39_SEBI_Circular_dated_October_15_2025.pdf"
       ],
       "semantic_retrieved": [
         "1749641449497.pdf",
@@ -210,9 +228,7 @@
         "1749641449497.pdf",
         "1749641449497.pdf",
         "RBI_RBI_doc_MD39857992A3DBE7946619F0F76DF81E472CF.PDF",
-        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
-        "1749641449497.pdf",
-        "1749641449497.pdf"
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
       ],
       "semantic_retrieved": [
         "1749641449497.pdf",
@@ -232,6 +248,11 @@
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "RBI_RBI_doc_170MD.PDF",
         "RBI_RBI_doc_170MD.PDF",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf"
@@ -256,6 +277,8 @@
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf"
       ],
       "semantic_retrieved": [
@@ -276,6 +299,8 @@
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "RBI_RBI_doc_29MD8B47C911ECA14450AACBAEF6D7981EF8.PDF",
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf"
@@ -300,6 +325,8 @@
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf"
       ],
       "semantic_retrieved": [
@@ -316,6 +343,10 @@
       "hybrid_hit": true,
       "semantic_hit": true,
       "hybrid_retrieved": [
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
         "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
         "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
         "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
@@ -341,6 +372,8 @@
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
         "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
+        "SEBI_Master_Circular_LODR_NCS_July2025.pdf",
         "SEBI_Master_Circular_LODR_NCS_July2025.pdf"
       ],
       "semantic_retrieved": [
@@ -360,7 +393,15 @@
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
-        "39_SEBI_Circular_dated_October_15_2025.pdf"
+        "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "RBI_RBI_doc_380MD14012026DAD56B73DC944F02AEA4530EC779AD7F.PDF",
+        "RBI_RBI_doc_380MD14012026DAD56B73DC944F02AEA4530EC779AD7F.PDF",
+        "RBI_RBI_doc_380MD14012026DAD56B73DC944F02AEA4530EC779AD7F.PDF",
+        "RBI_RBI_doc_380MD14012026DAD56B73DC944F02AEA4530EC779AD7F.PDF",
+        "RBI_RBI_doc_380MD14012026DAD56B73DC944F02AEA4530EC779AD7F.PDF",
+        "RBI_RBI_doc_381MD140120267212A1D4EF8349448E9416EF8F2D19B5.PDF",
+        "RBI_RBI_doc_381MD140120267212A1D4EF8349448E9416EF8F2D19B5.PDF",
+        "RBI_RBI_doc_381MD140120267212A1D4EF8349448E9416EF8F2D19B5.PDF"
       ],
       "semantic_retrieved": [
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
@@ -379,7 +420,15 @@
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "RBI_RBI_doc_29MD8B47C911ECA14450AACBAEF6D7981EF8.PDF",
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
-        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf"
+        "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "RBI_RBI_doc_380MD14012026DAD56B73DC944F02AEA4530EC779AD7F.PDF",
+        "RBI_RBI_doc_380MD14012026DAD56B73DC944F02AEA4530EC779AD7F.PDF",
+        "RBI_RBI_doc_380MD14012026DAD56B73DC944F02AEA4530EC779AD7F.PDF",
+        "RBI_RBI_doc_380MD14012026DAD56B73DC944F02AEA4530EC779AD7F.PDF",
+        "RBI_RBI_doc_380MD14012026DAD56B73DC944F02AEA4530EC779AD7F.PDF",
+        "RBI_RBI_doc_381MD140120267212A1D4EF8349448E9416EF8F2D19B5.PDF",
+        "RBI_RBI_doc_381MD140120267212A1D4EF8349448E9416EF8F2D19B5.PDF",
+        "RBI_RBI_doc_381MD140120267212A1D4EF8349448E9416EF8F2D19B5.PDF"
       ],
       "semantic_retrieved": [
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
@@ -418,6 +467,11 @@
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "39_SEBI_Circular_dated_October_15_2025.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf"
@@ -440,6 +494,11 @@
         "39_SEBI_Circular_dated_October_15_2025.pdf",
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
         "SEBI_Master_Circular_LODR_Listed_Entities_Jan2026.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
+        "1749641449497.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf",
         "18__SEBI_Circular_dated_June_05_2025.pdf"

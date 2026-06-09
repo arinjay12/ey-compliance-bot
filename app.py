@@ -48,8 +48,40 @@ LLM_MODEL      = "llama3"
 HISTORY_FILE   = "./chat_history.json"    # persists chat across sessions
 INGESTED_FILE  = "./ingested_docs.json"   # tracks which PDFs are already ingested
 L2_STATUS_FILE = "./level2_status.json"   # written by level2.py, read here
+AUDIT_FILE     = "./audit_log.jsonl"      # append-only compliance audit trail
 
 os.makedirs(DOCS_DIR, exist_ok=True)
+
+
+def ollama_up(timeout: float = 2.0) -> bool:
+    """Quick check that the local Llama 3 server is reachable."""
+    import urllib.request
+    try:
+        urllib.request.urlopen("http://localhost:11434/api/tags", timeout=timeout)
+        return True
+    except Exception:
+        return False
+
+
+def write_audit(question: str, answer: str, sources: list, refused: bool):
+    """Append an audit record so every answer is traceable to its sources —
+    a compliance tool should be able to show what it said and on what basis."""
+    try:
+        entry = {
+            "timestamp": datetime.now().isoformat(timespec="seconds"),
+            "question": question,
+            "answer": answer,
+            "refused": refused,
+            "sources": [
+                {"document": Path(d.metadata.get("source", "")).name,
+                 "page": d.metadata.get("page")}
+                for d in sources
+            ],
+        }
+        with open(AUDIT_FILE, "a", encoding="utf-8") as f:
+            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    except Exception:
+        pass   # auditing must never break the chat
 
 # ── Page setup ─────────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -494,6 +526,10 @@ if user_input:
     if not os.path.exists(CHROMA_DIR):
         st.error("📂 Please upload and process at least one document first.")
         st.stop()
+    if not ollama_up():
+        st.error("🦙 Llama 3 isn't running. Start Ollama (`ollama serve` or the "
+                 "Ollama app), then ask again.")
+        st.stop()
 
     st.session_state.messages.append({"role": "user", "content": user_input})
     with st.chat_message("user"):
@@ -541,7 +577,11 @@ if user_input:
         else:
             st.session_state.suggestions = []
 
-    # 5. Save to session + persist to disk
+    # 5. Audit trail — record what was answered and from which sources
+    write_audit(user_input, answer, sources,
+                refused=(answer == rag_core.REFUSAL_LINE))
+
+    # 6. Save to session + persist to disk
     st.session_state.messages.append({"role": "assistant", "content": answer})
     save_history(st.session_state.messages)
     st.rerun()
