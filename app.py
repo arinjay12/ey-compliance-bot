@@ -164,19 +164,32 @@ def load_l2_status() -> dict:
 def ingest_pdf(file_path: str, original_name: str, embeddings) -> tuple:
     """
     Load a PDF, split into chunks, store in ChromaDB.
-    Returns (chunk_count, is_duplicate).
-    Skips the file if it's already been ingested.
+    Returns (chunk_count, status) where status is one of:
+      "ok" | "duplicate" | "no_text".
+    "no_text" means almost no extractable text was found — usually a scanned /
+    image-only PDF that would need OCR. We do NOT ingest it (so it isn't silently
+    added as empty) and let the caller warn the user.
     """
     ingested = load_ingested()
     if original_name in ingested:
-        return 0, True   # duplicate — skip
+        return 0, "duplicate"
 
-    pages    = PyPDFLoader(file_path).load()
+    pages       = PyPDFLoader(file_path).load()
+    total_chars = sum(len((p.page_content or "").strip()) for p in pages)
+    n_pages     = max(len(pages), 1)
+
+    # Scanned/image PDFs extract little-to-no text. Flag if effectively empty
+    # or under ~40 characters per page on average (a real circular has far more).
+    if total_chars < 40 or (total_chars / n_pages) < 40:
+        return 0, "no_text"
+
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=rag_core.CHUNK_SIZE if hasattr(rag_core, "CHUNK_SIZE") else 1000,
         chunk_overlap=150,
     )
     chunks   = splitter.split_documents(pages)
+    if not chunks:
+        return 0, "no_text"
 
     # Attach the same document-level metadata the batch ingester uses, so
     # uploaded PDFs behave identically (reference number in source tag, etc.).
@@ -197,7 +210,7 @@ def ingest_pdf(file_path: str, original_name: str, embeddings) -> tuple:
 
     ingested.append(original_name)
     save_ingested(ingested)
-    return len(chunks), False
+    return len(chunks), "ok"
 
 
 # Retrieval, prompting and the out-of-scope refusal gate all live in rag_core —
@@ -380,9 +393,16 @@ with st.sidebar:
                     tmp_path = tmp.name
                 with st.spinner(f"Processing {f.name}…"):
                     try:
-                        n, is_dup = ingest_pdf(tmp_path, f.name, embeddings)
-                        if is_dup:
+                        n, status = ingest_pdf(tmp_path, f.name, embeddings)
+                        if status == "duplicate":
                             st.warning(f"⚠️ {f.name} — already ingested, skipped")
+                        elif status == "no_text":
+                            st.error(
+                                f"🖼️ {f.name} — no readable text found. This looks "
+                                "like a scanned / image-only PDF. It was NOT added "
+                                "(the bot can only read text). OCR the file first, "
+                                "then re-upload."
+                            )
                         else:
                             st.success(f"✅ {f.name} — {n} chunks added")
                     except Exception as e:

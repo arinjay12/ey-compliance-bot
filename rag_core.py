@@ -33,7 +33,9 @@ CHROMA_DIR  = "./chroma_db"
 DOCS_DIR    = "./docs"
 EMBED_MODEL = "all-MiniLM-L6-v2"
 LLM_MODEL   = "llama3"          # swap here to change the LLM everywhere
-LLM_TEMPERATURE = 0.1
+LLM_TEMPERATURE = 0.0           # deterministic: same question -> same answer
+                                # (important for a compliance tool; removes the
+                                #  run-to-run answer variance)
 
 # Chunking (used by ingest.py and the app's upload path)
 CHUNK_SIZE    = 1000

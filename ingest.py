@@ -59,8 +59,10 @@ def main():
         except Exception as e:
             print(f"  ! skipped {filename}: {e}")
             continue
-        if not pages:
-            print(f"  ! skipped {filename}: no extractable text")
+        total_chars = sum(len((p.page_content or "").strip()) for p in pages)
+        if not pages or total_chars < 40 * max(len(pages), 1):
+            print(f"  ! skipped {filename}: little/no extractable text "
+                  f"(likely scanned/image PDF — needs OCR)")
             continue
 
         # metadata: curated map wins; otherwise auto-extract from page 1
