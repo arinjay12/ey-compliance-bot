@@ -13,3 +13,4 @@ schedule>=1.2.0
 python-dotenv>=1.0.0
 plotly>=5.20.0
 faster-whisper>=1.0.0
+pyttsx3>=2.90

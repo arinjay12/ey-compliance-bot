@@ -508,6 +508,15 @@ for i, msg in enumerate(st.session_state.messages):
             st.caption("📊 Visualised from the answer")
             st.plotly_chart(charts.build_figure(msg["chart"]),
                             use_container_width=True, key=f"hist_chart_{i}")
+        # Level 5 (output): read a real answer aloud, offline, on demand
+        if msg["role"] == "assistant" and msg["content"] != rag_core.REFUSAL_LINE:
+            if st.button("🔊 Listen", key=f"tts_{i}"):
+                with st.spinner("Generating audio…"):
+                    audio_bytes = voice.synthesize(msg["content"])
+                if audio_bytes:
+                    st.audio(audio_bytes, format="audio/wav", autoplay=True)
+                else:
+                    st.caption("Audio unavailable.")
 
 # ── Trailing suggestions ───────────────────────────────────────────────────────
 if st.session_state.suggestions:
