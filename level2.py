@@ -337,7 +337,7 @@ Review the circular and stored documents to confirm.
 
 def save_status(circulars_checked: int, alerts_found: int, last_alert_title: str = ""):
     """Write run results to a JSON file so the Streamlit UI can display them."""
-    with open(STATUS_FILE, "w") as f:
+    with open(STATUS_FILE, "w", encoding="utf-8") as f:
         json.dump({
             "last_run":          now(),
             "circulars_checked": circulars_checked,
@@ -348,12 +348,15 @@ def save_status(circulars_checked: int, alerts_found: int, last_alert_title: str
 
 def load_seen() -> set:
     if os.path.exists(SEEN_FILE):
-        with open(SEEN_FILE, "r") as f:
-            return set(json.load(f))
+        try:
+            with open(SEEN_FILE, "r", encoding="utf-8") as f:
+                return set(json.load(f))
+        except Exception:
+            return set()
     return set()
 
 def save_seen(seen: set):
-    with open(SEEN_FILE, "w") as f:
+    with open(SEEN_FILE, "w", encoding="utf-8") as f:
         json.dump(list(seen), f)
 
 

@@ -132,31 +132,36 @@ def load_llm():
     return rag_core.get_llm()
 
 # ── Ingested docs tracker ──────────────────────────────────────────────────────
+# All JSON files are read/written as UTF-8 so non-ASCII content (e.g. the rupee
+# sign ₹ in answers) survives — Windows' default cp1252 can't encode it.
 def load_ingested() -> list:
     if os.path.exists(INGESTED_FILE):
-        with open(INGESTED_FILE, "r") as f:
+        with open(INGESTED_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return []
 
 def save_ingested(docs: list):
-    with open(INGESTED_FILE, "w") as f:
+    with open(INGESTED_FILE, "w", encoding="utf-8") as f:
         json.dump(docs, f)
 
 # ── Chat history persistence ───────────────────────────────────────────────────
 def load_history() -> list:
     if os.path.exists(HISTORY_FILE):
-        with open(HISTORY_FILE, "r") as f:
-            return json.load(f)
+        try:
+            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return []   # ignore a truncated/corrupt history file
     return []
 
 def save_history(messages: list):
-    with open(HISTORY_FILE, "w") as f:
+    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
         json.dump(messages, f, ensure_ascii=False)
 
 # ── Level 2 status reader ──────────────────────────────────────────────────────
 def load_l2_status() -> dict:
     if os.path.exists(L2_STATUS_FILE):
-        with open(L2_STATUS_FILE, "r") as f:
+        with open(L2_STATUS_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
 
